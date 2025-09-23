@@ -19,6 +19,14 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        /* Luxury gold system */
+        "luxury-gold": {
+          DEFAULT: "hsl(var(--luxury-gold))",
+          dark: "hsl(var(--luxury-gold-dark))",
+          light: "hsl(var(--luxury-gold-light))",
+        },
+        
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
