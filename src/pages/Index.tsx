@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { PropertyGallery } from "@/components/PropertyGallery";
 import { 
   Home, 
   Car, 
@@ -15,7 +16,9 @@ import {
   Shield,
   TreePine,
   Star,
-  Building
+  Building,
+  Crown,
+  Sparkles
 } from "lucide-react";
 import heroImage from "@/assets/villa-hero.jpg";
 import interiorImage from "@/assets/villa-interior.jpg";
@@ -34,14 +37,22 @@ const Index = () => {
         </div>
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
-          <Badge className="mb-4 bg-luxury-gold text-primary font-semibold">
-            EXCLUSIVE LISTING
+          <Badge className="mb-6 bg-gradient-to-r from-luxury-gold to-accent text-primary font-bold px-6 py-2 text-sm animate-pulse">
+            <Crown className="w-4 h-4 mr-2" />
+            EXCLUSIVE DUBAI HILLS ESTATE
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Dubai's Most Prestigious Address
+          <h1 className="text-6xl md:text-8xl font-extrabold mb-8 leading-tight bg-gradient-to-r from-white via-luxury-gold to-white bg-clip-text text-transparent drop-shadow-2xl">
+            Dubai's Crown Jewel
           </h1>
-          <p className="text-xl md:text-2xl mb-4 text-white/90">
-            Largest Plot in Hills Grove | Dubai Hills Estate
+          <div className="flex items-center justify-center gap-2 mb-6">
+            <Sparkles className="w-6 h-6 text-luxury-gold animate-pulse" />
+            <p className="text-2xl md:text-3xl font-semibold text-luxury-gold">
+              Largest Plot in Hills Grove
+            </p>
+            <Sparkles className="w-6 h-6 text-luxury-gold animate-pulse" />
+          </div>
+          <p className="text-lg md:text-xl mb-2 text-white/80">
+            42,517 sqft of Pure Luxury | 29,000 sqft Built-up Area
           </p>
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
             <div className="flex items-center gap-2">
@@ -57,53 +68,67 @@ const Index = () => {
               <span>29,000 sqft BUA</span>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-luxury-gold hover:bg-luxury-gold-dark text-primary font-semibold px-8">
-              <Phone className="w-5 h-5 mr-2" />
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button size="lg" className="bg-gradient-to-r from-luxury-gold to-accent hover:from-luxury-gold-dark hover:to-accent/80 text-primary font-bold px-10 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <Phone className="w-6 h-6 mr-3" />
               Call Ola Now
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              View Details
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-primary font-bold px-10 py-4 text-lg backdrop-blur-sm bg-white/10 transform hover:scale-105 transition-all duration-300">
+              <Camera className="w-6 h-6 mr-3" />
+              Virtual Tour
             </Button>
           </div>
         </div>
       </section>
 
       {/* Property Highlights */}
-      <section className="py-20 px-6">
+      <section className="py-24 px-6 bg-gradient-to-br from-primary/5 via-accent/10 to-secondary/5">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-foreground">Exceptional Features</h2>
-            <p className="text-xl text-muted-foreground">Experience luxury living at its finest</p>
+          <div className="text-center mb-20">
+            <Badge className="mb-6 bg-gradient-to-r from-accent to-luxury-gold text-white font-bold px-6 py-2">
+              <Star className="w-4 h-4 mr-2" />
+              WORLD-CLASS FEATURES
+            </Badge>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Unmatched Excellence</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Where extraordinary luxury meets unparalleled comfort in Dubai's most coveted address</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-8 text-center hover:shadow-2xl transition-all duration-500 transform hover:scale-105 bg-gradient-to-br from-white to-luxury-gold/5 border-2 border-luxury-gold/20 group">
               <CardContent className="pt-6">
-                <Building className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Largest Plot</h3>
-                <p className="text-muted-foreground">42,517 sqft plot - the biggest in Hills Grove</p>
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-luxury-gold to-accent rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                  <Building className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-primary">Record Breaking Plot</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">42,517 sqft - the most prestigious and largest residential plot in Hills Grove</p>
               </CardContent>
             </Card>
             
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-8 text-center hover:shadow-2xl transition-all duration-500 transform hover:scale-105 bg-gradient-to-br from-white to-accent/5 border-2 border-accent/20 group">
               <CardContent className="pt-6">
-                <Star className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Premium Amenities</h3>
-                <p className="text-muted-foreground">Private elevator, gym, sauna, cinema & more</p>
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-accent to-luxury-gold rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-primary">Ultra-Premium Amenities</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">Private elevator, professional gym, sauna, 5-seater cinema & resort-style facilities</p>
               </CardContent>
             </Card>
             
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-8 text-center hover:shadow-2xl transition-all duration-500 transform hover:scale-105 bg-gradient-to-br from-white to-secondary/5 border-2 border-primary/20 group">
               <CardContent className="pt-6">
-                <Shield className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Fully Furnished</h3>
-                <p className="text-muted-foreground">Move-in ready with Bosch appliances</p>
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-primary to-luxury-gold rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-primary">Turn-Key Luxury</h3>
+                <p className="text-muted-foreground text-lg leading-relaxed">Fully furnished with premium Bosch appliances - move in immediately</p>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
+
+      {/* Property Gallery */}
+      <PropertyGallery />
 
       {/* Property Details */}
       <section className="py-20 bg-secondary/50">
@@ -172,40 +197,58 @@ const Index = () => {
       </section>
 
       {/* Luxury Amenities */}
-      <section className="py-20">
+      <section className="py-24 bg-gradient-to-br from-secondary/30 via-accent/5 to-primary/10">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Luxury Amenities</h2>
+          <div className="text-center mb-20">
+            <Badge className="mb-6 bg-gradient-to-r from-primary to-accent text-white font-bold px-6 py-2">
+              <Dumbbell className="w-4 h-4 mr-2" />
+              RESORT-STYLE AMENITIES
+            </Badge>
+            <h2 className="text-5xl md:text-6xl font-bold text-center mb-6 bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">World-Class Luxury</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">Indulge in amenities that rival the world's finest resorts, all within your private estate</p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { icon: Dumbbell, title: "Private Gym & Sauna", desc: "Professional equipment" },
-              { icon: Camera, title: "5-Seater Cinema", desc: "Ultimate entertainment" },
-              { icon: Waves, title: "Pool & Jacuzzi", desc: "Resort-style relaxation" },
-              { icon: TreePine, title: "Lake Views", desc: "From bar/lounge area" },
-              { icon: Shield, title: "CCTV Security", desc: "Complete surveillance" },
-              { icon: Building, title: "Private Elevator", desc: "Exclusive access" },
+              { icon: Dumbbell, title: "Private Gym & Sauna", desc: "Professional equipment & spa facilities", gradient: "from-red-500 to-orange-500" },
+              { icon: Camera, title: "5-Seater Cinema", desc: "Immersive entertainment experience", gradient: "from-purple-500 to-pink-500" },
+              { icon: Waves, title: "Pool & Jacuzzi", desc: "Resort-style aquatic paradise", gradient: "from-blue-500 to-cyan-500" },
+              { icon: TreePine, title: "Lake Views", desc: "Panoramic vistas from bar/lounge", gradient: "from-green-500 to-emerald-500" },
+              { icon: Shield, title: "CCTV Security", desc: "Complete surveillance system", gradient: "from-gray-500 to-slate-500" },
+              { icon: Building, title: "Private Elevator", desc: "Exclusive vertical transportation", gradient: "from-amber-500 to-yellow-500" },
             ].map((amenity, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                <CardContent className="pt-4">
-                  <amenity.icon className="w-8 h-8 text-luxury-gold mb-3" />
-                  <h3 className="font-semibold mb-2">{amenity.title}</h3>
-                  <p className="text-sm text-muted-foreground">{amenity.desc}</p>
+              <Card key={index} className="group p-8 hover:shadow-2xl transition-all duration-500 transform hover:scale-105 bg-gradient-to-br from-white to-accent/5 border-2 border-accent/20 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-500" style={{ background: `linear-gradient(135deg, var(--tw-gradient-stops))` }}></div>
+                <CardContent className="pt-4 relative z-10">
+                  <div className={`w-14 h-14 mx-auto mb-6 bg-gradient-to-br ${amenity.gradient} rounded-xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-300 shadow-lg`}>
+                    <amenity.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-bold mb-3 text-xl text-primary group-hover:text-accent transition-colors duration-300">{amenity.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{amenity.desc}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
           
-          <div className="mt-12 bg-gradient-to-r from-primary to-luxury-gold-dark p-8 rounded-lg text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">Additional Premium Features</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm max-w-4xl mx-auto">
-              <p>• Bosch appliances in both kitchens</p>
-              <p>• Marble tiling in all toilets</p>
-              <p>• Office and pantry spaces</p>
-              <p>• Family TV room and study</p>
-              <p>• Staff room in basement</p>
-              <p>• 3 closets in master bedroom</p>
-              <p>• Outdoor seating areas</p>
-              <p>• 2 storage rooms</p>
+          <div className="mt-16 bg-gradient-to-r from-primary via-accent to-luxury-gold-dark p-10 rounded-2xl text-white text-center shadow-2xl transform hover:scale-105 transition-all duration-300">
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <Sparkles className="w-8 h-8 animate-pulse" />
+              <h3 className="text-3xl font-bold">Exclusive Premium Features</h3>
+              <Sparkles className="w-8 h-8 animate-pulse" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-5xl mx-auto bg-white/10 backdrop-blur-sm rounded-xl p-8 border border-white/20">
+              <div className="space-y-3">
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Bosch appliances in both kitchens</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Marble tiling in all bathrooms</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Executive office and pantry spaces</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Family TV room and private study</p>
+              </div>
+              <div className="space-y-3">
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Staff quarters in basement level</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> 3 walk-in closets in master suite</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> Multiple outdoor entertainment areas</p>
+                <p className="flex items-center gap-2"><Crown className="w-4 h-4 text-luxury-gold" /> 2 additional storage facilities</p>
+              </div>
             </div>
           </div>
         </div>
