@@ -22,9 +22,9 @@ import { Navigation } from "@/components/Navigation";
 import { VideoSection } from "@/components/VideoSection";
 import { ContactForm } from "@/components/ContactForm";
 import { FloatingButtons } from "@/components/FloatingButtons";
-import heroImage from "@/assets/villa-hero.jpg";
+import heroImage from "@/assets/herro2.jpg";
 import interiorImage from "@/assets/villa-interior.jpg";
-import logo from "@/assets/elite-property-logo.png";
+
 
 const Index = () => {
   return (
@@ -34,28 +34,26 @@ const Index = () => {
       
       {/* Hero Section */}
       <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        <div
+          className="absolute inset-0 bg-cover bg-top md:bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-black/50"></div>
         </div>
-        
-        {/* Logo */}
-        <div className="absolute top-6 left-6 z-20">
-          <img src={logo} alt="Elite Property Brokerage" className="h-12 w-auto" />
-        </div>
-        
+
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
           <Badge className="mb-4 bg-orange-500 text-white font-semibold">
             EXCLUSIVE LISTING
           </Badge>
+
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             Dubai's Most Prestigious Address
           </h1>
+
           <p className="text-xl md:text-2xl mb-4 text-white/90">
             Largest Plot in Hills Grove | Dubai Hills Estate
           </p>
+
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
             <div className="flex items-center gap-2">
               <Bed className="w-5 h-5" />
@@ -70,17 +68,28 @@ const Index = () => {
               <span>29,000 sqft BUA</span>
             </div>
           </div>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8">
-              <Phone className="w-5 h-5 mr-2" />
-              Call Ola Now
+            {/* Call Now -> replace the tel number with your actual one */}
+            <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8">
+              <a href="tel:+971585998161">
+                <Phone className="w-5 h-5 mr-2" />
+                Call Now
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
-              View Details
+
+            {/* View Details -> solid light background so text is readable */}
+            <Button
+              asChild
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 font-semibold px-8 border border-white/20"
+            >
+              <a href="#details">View Details</a>
             </Button>
           </div>
         </div>
       </section>
+
 
       {/* Exceptional Details Section */}
       <section id="details" className="py-20 px-6 bg-white">
@@ -303,66 +312,8 @@ const Index = () => {
       {/* Contact Form */}
       <ContactForm />
 
-      {/* Contact Section */}
-      <section className="py-20 bg-primary text-white">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <img src={logo} alt="Elite Property Brokerage" className="h-16 w-auto mx-auto mb-8" />
-          <h2 className="text-4xl font-bold mb-6">Contact Our Expert</h2>
-          <p className="text-xl mb-8 text-white/90">
-            Ready to view this exceptional property? Contact Ola for exclusive access.
-          </p>
-          
-          <Card className="bg-white/10 border-white/20 backdrop-blur-sm">
-            <CardContent className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 text-orange-500">Elite Property Brokerage</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
-                      <p className="text-sm">Office 613, The Onyx Tower 1, The Greens (SZR), Dubai-UAE</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Mail className="w-5 h-5 text-orange-500" />
-                      <p>info@elitepropertydxb.com</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Shield className="w-5 h-5 text-orange-500" />
-                      <p className="text-sm">RERA ORN: 25831</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Home className="w-5 h-5 text-orange-500" />
-                      <p className="text-sm">Reference: EPS-S-7574</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <Shield className="w-5 h-5 text-orange-500" />
-                      <p className="text-sm">Permit: 6511674842</p>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col justify-center">
-                  <Button 
-                    size="lg" 
-                    className="bg-orange-500 hover:bg-orange-600 text-white font-semibold mb-4"
-                  >
-                    <Phone className="w-5 h-5 mr-2" />
-                    Call Ola for Details
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white hover:text-primary"
-                  >
-                    <Mail className="w-5 h-5 mr-2" />
-                    Send Inquiry
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+     
+      
     </div>
   );
 };
