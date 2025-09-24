@@ -9,17 +9,18 @@ import {
   MapPin, 
   Phone, 
   Mail, 
-  Dumbbell,
-  Waves,
-  Camera,
   Shield,
-  TreePine,
   Star,
-  Building
+  Building,
+  Wifi,
+  Camera,
+  Dumbbell,
+  Check
 } from "lucide-react";
+import { VisualGallery } from "@/components/VisualGallery";
 import heroImage from "@/assets/villa-hero.jpg";
 import interiorImage from "@/assets/villa-interior.jpg";
-import poolImage from "@/assets/villa-pool.jpg";
+import logo from "@/assets/elite-property-logo.png";
 
 const Index = () => {
   return (
@@ -30,11 +31,16 @@ const Index = () => {
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
-          <div className="absolute inset-0 bg-black/40"></div>
+          <div className="absolute inset-0 bg-black/50"></div>
+        </div>
+        
+        {/* Logo */}
+        <div className="absolute top-6 left-6 z-20">
+          <img src={logo} alt="Elite Property Brokerage" className="h-12 w-auto" />
         </div>
         
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6">
-          <Badge className="mb-4 bg-luxury-gold text-primary font-semibold">
+          <Badge className="mb-4 bg-orange-500 text-white font-semibold">
             EXCLUSIVE LISTING
           </Badge>
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
@@ -58,7 +64,7 @@ const Index = () => {
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-luxury-gold hover:bg-luxury-gold-dark text-primary font-semibold px-8">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8">
               <Phone className="w-5 h-5 mr-2" />
               Call Ola Now
             </Button>
@@ -69,151 +75,223 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Property Highlights */}
-      <section className="py-20 px-6">
+      {/* Exceptional Details Section */}
+      <section className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-foreground">Exceptional Features</h2>
-            <p className="text-xl text-muted-foreground">Experience luxury living at its finest</p>
+            <Badge className="bg-orange-500 text-white mb-4">PROPERTY HIGHLIGHTS</Badge>
+            <h2 className="text-4xl font-bold mb-4 text-foreground">
+              Exceptional <span className="text-orange-500">Details</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Discover the unique features that make this property stand out in Dubai's prestigious Hills Grove community
+            </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <Building className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Largest Plot</h3>
-                <p className="text-muted-foreground">42,517 sqft plot - the biggest in Hills Grove</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">7</div>
+                <h3 className="text-lg font-semibold mb-1">Bedrooms</h3>
               </CardContent>
             </Card>
             
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <Star className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Premium Amenities</h3>
-                <p className="text-muted-foreground">Private elevator, gym, sauna, cinema & more</p>
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">9</div>
+                <h3 className="text-lg font-semibold mb-1">Bathrooms</h3>
               </CardContent>
             </Card>
             
-            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
-              <CardContent className="pt-6">
-                <Shield className="w-12 h-12 mx-auto mb-4 text-luxury-gold" />
-                <h3 className="text-xl font-semibold mb-2">Fully Furnished</h3>
-                <p className="text-muted-foreground">Move-in ready with Bosch appliances</p>
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">29,000 sqft</div>
+                <h3 className="text-lg font-semibold mb-1">BUA</h3>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">42,517 sqft</div>
+                <h3 className="text-lg font-semibold mb-1">Plot Size</h3>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">7</div>
+                <h3 className="text-lg font-semibold mb-1">Parking</h3>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-white border">
+              <CardContent className="pt-4">
+                <div className="text-3xl font-bold text-orange-500 mb-2">Fully Furnished</div>
+                <h3 className="text-lg font-semibold mb-1">Move-in Ready</h3>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Property Details */}
-      <section className="py-20 bg-secondary/50">
+      {/* Move in Ready Luxury Section */}
+      <section className="py-20 bg-gray-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Property Specifications</h2>
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Bed className="w-6 h-6 text-luxury-gold" />
-                    <span className="font-semibold">Bedrooms</span>
-                  </div>
-                  <p className="text-2xl font-bold">7</p>
+              <Badge className="bg-orange-500 text-white mb-4">READY TO MOVE</Badge>
+              <h2 className="text-4xl font-bold mb-6">
+                Move in Ready <span className="text-orange-500">Luxury</span>
+              </h2>
+              <p className="text-lg text-muted-foreground mb-8">
+                This exceptional property comes fully furnished with premium Bosch appliances and luxury finishes throughout. 
+                Every detail has been carefully selected to provide the ultimate living experience.
+              </p>
+              
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span>Bosch appliances in both kitchens</span>
                 </div>
-                
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Bath className="w-6 h-6 text-luxury-gold" />
-                    <span className="font-semibold">Bathrooms</span>
-                  </div>
-                  <p className="text-2xl font-bold">9</p>
+                <div className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span>Marble tiling in all bathrooms</span>
                 </div>
-                
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Home className="w-6 h-6 text-luxury-gold" />
-                    <span className="font-semibold">BUA</span>
-                  </div>
-                  <p className="text-lg font-bold">29,000 sqft</p>
+                <div className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span>Private elevator access</span>
                 </div>
-                
-                <div className="bg-white p-4 rounded-lg shadow-sm">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Car className="w-6 h-6 text-luxury-gold" />
-                    <span className="font-semibold">Parking</span>
-                  </div>
-                  <p className="text-2xl font-bold">7</p>
+                <div className="flex items-center gap-3">
+                  <Check className="w-5 h-5 text-green-500" />
+                  <span>Premium furnishing throughout</span>
                 </div>
               </div>
               
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-xl font-semibold mb-4">Reference Details</h3>
-                <div className="space-y-2 text-sm">
-                  <p><span className="font-semibold">Reference:</span> EPS-S-7574</p>
-                  <p><span className="font-semibold">Permit:</span> 6511674842</p>
-                  <p><span className="font-semibold">Location:</span> Hills Grove, Dubai Hills Estate</p>
-                </div>
-              </div>
+              <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Phone className="w-5 h-5 mr-2" />
+                Schedule Viewing
+              </Button>
             </div>
             
-            <div className="grid grid-cols-1 gap-4">
-              <img 
-                src={interiorImage} 
-                alt="Luxury villa interior" 
-                className="w-full h-64 object-cover rounded-lg shadow-lg"
-              />
-              <img 
-                src={poolImage} 
-                alt="Villa swimming pool area" 
-                className="w-full h-64 object-cover rounded-lg shadow-lg"
-              />
+            <div>
+              <Card className="overflow-hidden shadow-lg border-0">
+                <img 
+                  src={interiorImage} 
+                  alt="Luxury villa interior" 
+                  className="w-full h-96 object-cover"
+                />
+              </Card>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Luxury Amenities */}
-      <section className="py-20">
+      {/* Unparalleled Luxury Section */}
+      <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-16">Luxury Amenities</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: Dumbbell, title: "Private Gym & Sauna", desc: "Professional equipment" },
-              { icon: Camera, title: "5-Seater Cinema", desc: "Ultimate entertainment" },
-              { icon: Waves, title: "Pool & Jacuzzi", desc: "Resort-style relaxation" },
-              { icon: TreePine, title: "Lake Views", desc: "From bar/lounge area" },
-              { icon: Shield, title: "CCTV Security", desc: "Complete surveillance" },
-              { icon: Building, title: "Private Elevator", desc: "Exclusive access" },
-            ].map((amenity, index) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
-                <CardContent className="pt-4">
-                  <amenity.icon className="w-8 h-8 text-luxury-gold mb-3" />
-                  <h3 className="font-semibold mb-2">{amenity.title}</h3>
-                  <p className="text-sm text-muted-foreground">{amenity.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="text-center mb-16">
+            <Badge className="bg-orange-500 text-white mb-4">LUXURY FEATURES</Badge>
+            <h2 className="text-4xl font-bold mb-4">
+              Unparalleled <span className="text-orange-500">Luxury</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Experience world-class amenities designed for the most discerning residents
+            </p>
           </div>
           
-          <div className="mt-12 bg-gradient-to-r from-primary to-luxury-gold-dark p-8 rounded-lg text-white text-center">
-            <h3 className="text-2xl font-bold mb-4">Additional Premium Features</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm max-w-4xl mx-auto">
-              <p>• Bosch appliances in both kitchens</p>
-              <p>• Marble tiling in all toilets</p>
-              <p>• Office and pantry spaces</p>
-              <p>• Family TV room and study</p>
-              <p>• Staff room in basement</p>
-              <p>• 3 closets in master bedroom</p>
-              <p>• Outdoor seating areas</p>
-              <p>• 2 storage rooms</p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-orange-50 border-orange-200">
+              <CardContent className="pt-4">
+                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Building className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Largest Plot in Hills</h3>
+                <p className="text-sm text-muted-foreground">42,517 sqft exclusive plot</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-orange-50 border-orange-200">
+              <CardContent className="pt-4">
+                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Prime Location</h3>
+                <p className="text-sm text-muted-foreground">Dubai Hills Estate</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-orange-50 border-orange-200">
+              <CardContent className="pt-4">
+                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Premium Security</h3>
+                <p className="text-sm text-muted-foreground">24/7 CCTV monitoring</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="p-8 text-center hover:shadow-lg transition-shadow bg-orange-50 border-orange-200">
+              <CardContent className="pt-4">
+                <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Star className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2">Complete Amenities</h3>
+                <p className="text-sm text-muted-foreground">Every luxury included</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
+
+      {/* Complete Luxury Amenities Section */}
+      <section className="py-20 bg-primary text-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <Badge className="bg-orange-500 text-white mb-4">AMENITIES</Badge>
+            <h2 className="text-4xl font-bold mb-4">Complete Luxury Amenities</h2>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+              Every convenience and luxury has been thoughtfully included in this exceptional property
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[
+              "Private Gym & Sauna",
+              "5-Seater Cinema Room", 
+              "Swimming Pool & Jacuzzi",
+              "Private Elevator Access",
+              "Staff Room in Basement",
+              "7 Parking Spaces",
+              "CCTV Security System",
+              "3 Walk-in Closets",
+              "Outdoor Seating Areas",
+              "2 Storage Rooms",
+              "Office & Pantry Spaces",
+              "Family TV Room & Study"
+            ].map((amenity, index) => (
+              <div key={index} className="flex items-center gap-3">
+                <Check className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                <span className="text-white">{amenity}</span>
+              </div>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8">
+              <Phone className="w-5 h-5 mr-2" />
+              Call Now for More Details
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Gallery Section */}
+      <VisualGallery />
 
       {/* Contact Section */}
       <section className="py-20 bg-primary text-white">
         <div className="max-w-4xl mx-auto px-6 text-center">
+          <img src={logo} alt="Elite Property Brokerage" className="h-16 w-auto mx-auto mb-8" />
           <h2 className="text-4xl font-bold mb-6">Contact Our Expert</h2>
           <p className="text-xl mb-8 text-white/90">
             Ready to view this exceptional property? Contact Ola for exclusive access.
@@ -223,19 +301,27 @@ const Index = () => {
             <CardContent className="p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4 text-luxury-gold">Elite Property Brokerage</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-orange-500">Elite Property Brokerage</h3>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-5 h-5 text-luxury-gold" />
+                    <div className="flex items-start gap-3">
+                      <MapPin className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
                       <p className="text-sm">Office 613, The Onyx Tower 1, The Greens (SZR), Dubai-UAE</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <Mail className="w-5 h-5 text-luxury-gold" />
+                      <Mail className="w-5 h-5 text-orange-500" />
                       <p>info@elitepropertydxb.com</p>
                     </div>
                     <div className="flex items-center gap-3">
-                      <Shield className="w-5 h-5 text-luxury-gold" />
+                      <Shield className="w-5 h-5 text-orange-500" />
                       <p className="text-sm">RERA ORN: 25831</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Home className="w-5 h-5 text-orange-500" />
+                      <p className="text-sm">Reference: EPS-S-7574</p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Shield className="w-5 h-5 text-orange-500" />
+                      <p className="text-sm">Permit: 6511674842</p>
                     </div>
                   </div>
                 </div>
@@ -243,7 +329,7 @@ const Index = () => {
                 <div className="flex flex-col justify-center">
                   <Button 
                     size="lg" 
-                    className="bg-luxury-gold hover:bg-luxury-gold-dark text-primary font-semibold mb-4"
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-semibold mb-4"
                   >
                     <Phone className="w-5 h-5 mr-2" />
                     Call Ola for Details
