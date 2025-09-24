@@ -18,6 +18,10 @@ import {
   Check
 } from "lucide-react";
 import { VisualGallery } from "@/components/VisualGallery";
+import { Navigation } from "@/components/Navigation";
+import { VideoSection } from "@/components/VideoSection";
+import { ContactForm } from "@/components/ContactForm";
+import { FloatingButtons } from "@/components/FloatingButtons";
 import heroImage from "@/assets/villa-hero.jpg";
 import interiorImage from "@/assets/villa-interior.jpg";
 import logo from "@/assets/elite-property-logo.png";
@@ -25,8 +29,11 @@ import logo from "@/assets/elite-property-logo.png";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Navigation />
+      <FloatingButtons />
+      
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: `url(${heroImage})` }}
@@ -76,7 +83,7 @@ const Index = () => {
       </section>
 
       {/* Exceptional Details Section */}
-      <section className="py-20 px-6 bg-white">
+      <section id="details" className="py-20 px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <Badge className="bg-orange-500 text-white mb-4">PROPERTY HIGHLIGHTS</Badge>
@@ -187,7 +194,7 @@ const Index = () => {
       </section>
 
       {/* Unparalleled Luxury Section */}
-      <section className="py-20 bg-white">
+      <section id="features" className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="bg-orange-500 text-white mb-4">LUXURY FEATURES</Badge>
@@ -244,7 +251,7 @@ const Index = () => {
       </section>
 
       {/* Complete Luxury Amenities Section */}
-      <section className="py-20 bg-primary text-white">
+      <section id="amenities" className="py-20 bg-primary text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <Badge className="bg-orange-500 text-white mb-4">AMENITIES</Badge>
@@ -285,8 +292,16 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Video Section */}
+      <VideoSection />
+
       {/* Visual Gallery Section */}
-      <VisualGallery />
+      <div id="gallery">
+        <VisualGallery />
+      </div>
+
+      {/* Contact Form */}
+      <ContactForm />
 
       {/* Contact Section */}
       <section className="py-20 bg-primary text-white">
