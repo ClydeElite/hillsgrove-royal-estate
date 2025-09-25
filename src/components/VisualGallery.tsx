@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 
-// Import images
+// Images…
 import exterior1 from "@/assets/gallery/DSC03480-HDR.jpg";
 import exterior2 from "@/assets/gallery/DSC03471-HDR.jpg";
 import exterior3 from "@/assets/gallery/DSC02964-HDR.jpg";
@@ -42,10 +42,10 @@ import interior7 from "@/assets/gallery/DSC03180-HDR.jpg";
 import interior8 from "@/assets/gallery/DSC03249-HDR.jpg";
 import interior9 from "@/assets/gallery/DSC03261-HDR.jpg";
 import interior10 from "@/assets/gallery/DSC03240-HDR.jpg";
-import aminities1 from "@/assets/gallery/DSC03297-HDR.jpg"; // Reused
+import aminities1 from "@/assets/gallery/DSC03297-HDR.jpg";
 import aminities2 from "@/assets/gallery/DSC03318-HDR.jpg";
-import aminities3 from "@/assets/gallery/DSC03333-HDR.jpg"; // Reused
-import aminities4 from "@/assets/gallery/DSC03372-HDR.jpg"; // Reused
+import aminities3 from "@/assets/gallery/DSC03333-HDR.jpg";
+import aminities4 from "@/assets/gallery/DSC03372-HDR.jpg";
 
 const galleryData = {
   exterior: [
@@ -58,12 +58,12 @@ const galleryData = {
   ],
   interior: [
     { src: interior1, alt: "Reception Interior" },
-    { src: interior2, alt: "Family Dinning Area" },
-    { src: interior3, alt: "Modern kitchen & Dinning Area" },
+    { src: interior2, alt: "Family Dining Area" },
+    { src: interior3, alt: "Modern Kitchen & Dining Area" },
     { src: interior4, alt: "Tea & Conversation Nook" },
     { src: interior5, alt: "Family Sitting Area" },
     { src: interior6, alt: "Formal Reception Lounge" },
-    { src: interior7, alt: "Modern Dinning Area" },
+    { src: interior7, alt: "Modern Dining Area" },
     { src: interior8, alt: "Majlis Lounge" },
     { src: interior9, alt: "TV Area" },
     { src: interior10, alt: "Sunroom Corner" },
@@ -72,46 +72,45 @@ const galleryData = {
     { src: bedroom3, alt: "Primary Suite – Panoramic Pool & Park Views" },
     { src: bedroom6, alt: "Designer’s Suite – Feature Wall & Balcony" },
     { src: bedroom2, alt: "Canopy Suite – Dressing Room & Terrace Access" },
-    { src: bedroom5, alt: "Garden-View Junior Suite – Walk-In Wardrobe" },    
+    { src: bedroom5, alt: "Garden-View Junior Suite – Walk-In Wardrobe" },
     { src: bedroom1, alt: "Serenity Suite – Sky-Blue Corner Lounge" },
     { src: bedroom4, alt: "Botanical Suite – Calm Neutrals & Study Nook" },
     { src: bedroom7, alt: "Guest Suite – Cozy & Quiet Retreat" },
   ],
   bathrooms: [
-    { src: bathroom1, alt: "Master bathroom" },
+    { src: bathroom1, alt: "Primary bathroom" },
     { src: bathroom2, alt: "Guest bathroom" },
-    { src: bathroom3, alt: "Child bathroom" },
+    { src: bathroom3, alt: "Children’s bathroom" },
     { src: bathroom4, alt: "Guest bathroom 2" },
-    { src: bathroom5, alt: "Master bathroom 2" },
+    { src: bathroom5, alt: "Primary bathroom 2" },
     { src: bathroom6, alt: "Guest bathroom 3" },
-    { src: bathroom7, alt: "Master bathroom 3" },
+    { src: bathroom7, alt: "Primary bathroom 3" },
   ],
   outdoor: [
-    { src: outdoor1, alt: "Big Tarrace seating area" },
-    { src: outdoor2, alt: "Tarrace seating area" },
+    { src: outdoor1, alt: "Large Terrace Seating Area" },
+    { src: outdoor2, alt: "Terrace Seating Area" },
     { src: outdoor3, alt: "Sunset Roof Terrace" },
-    { src: outdoor4, alt: "Outdoor roof Dining area" },
-    { src: outdoor5, alt: "Poolside seating area" },
-    { src: outdoor6, alt: "Garden seating area" },
+    { src: outdoor4, alt: "Outdoor Roof Dining Area" },
+    { src: outdoor5, alt: "Poolside Seating Area" },
+    { src: outdoor6, alt: "Garden Seating Area" },
     { src: outdoor7, alt: "Family BBQ Pergola" },
   ],
-  // NEW: Entertainment & Amenities – reusing your most relevant images
   amenities: [
-    { src: aminities1, alt: "Entertainment" },
+    { src: aminities1, alt: "Entertainment Lounge" },
     { src: aminities2, alt: "Sports Room" },
     { src: aminities3, alt: "Fitness Room" },
-    { src: aminities4, alt: "Full Parking" },
+    { src: aminities4, alt: "Covered Parking" },
   ],
 };
 
 const categories = [
   { key: "exterior", label: "Outside Views" },
-  { key: "interior", label: " Kitchen & Living Area" },
+  { key: "interior", label: "Kitchen & Living Area" },
   { key: "bedrooms", label: "Bedrooms" },
   { key: "bathrooms", label: "Bathrooms" },
   { key: "outdoor", label: "Outdoor Sitting" },
-  { key: "amenities", label: "Entertainment & Amenities" }, // NEW TAB
-];
+  { key: "amenities", label: "Entertainment & Amenities" },
+] as const;
 
 export const VisualGallery = () => {
   const [activeCategory, setActiveCategory] = useState<keyof typeof galleryData>("exterior");
@@ -132,17 +131,20 @@ export const VisualGallery = () => {
     document.body.style.overflow = "";
   };
 
-  const showPrev = () => setLightboxIndex((i) => (i - 1 + images.length) % images.length);
-  const showNext = () => setLightboxIndex((i) => (i + 1) % images.length);
+  const showPrev = useCallback(() => {
+    setLightboxIndex((i) => (i - 1 + images.length) % images.length);
+  }, [images.length]);
 
-  // Reset on category change
+  const showNext = useCallback(() => {
+    setLightboxIndex((i) => (i + 1) % images.length);
+  }, [images.length]);
+
   useEffect(() => {
     setLightboxOpen(false);
     setLightboxIndex(0);
     document.body.style.overflow = "";
   }, [activeCategory]);
 
-  // Keyboard support when lightbox is open
   useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
@@ -152,10 +154,8 @@ export const VisualGallery = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lightboxOpen, images.length]);
+  }, [lightboxOpen, images.length, showPrev, showNext]);
 
-  // Touch swipe
   const onTouchStart = (e: React.TouchEvent) => setTouchStartX(e.touches[0].clientX);
   const onTouchEnd = (e: React.TouchEvent) => {
     if (touchStartX === null) return;
@@ -172,11 +172,15 @@ export const VisualGallery = () => {
 
   return (
     <section id="gallery" className="py-20 bg-gray-50 scroll-mt-24">
-      <div className="max-w-7xl mx-auto px-6">
+      {/* width: 100% mobile, 90% on lg+ */}
+      <div className="mx-auto w-full lg:w-[90%] px-4 sm:px-6">
         <div className="text-center mb-12">
-          <Badge className="bg-orange-500 text-white mb-4">VISUAL GALLERY</Badge>
+          <Badge className="bg-primary text-primary-foreground mb-4">VISUAL GALLERY</Badge>
           <h2 className="text-4xl font-bold mb-4">
-            Visual <span className="text-orange-500">Experience</span>
+            Visual{" "}
+            <span className="bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 bg-clip-text text-transparent">
+              Experience
+            </span>
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Take a virtual tour of this magnificent property and experience luxury living at its finest
@@ -188,10 +192,10 @@ export const VisualGallery = () => {
           {categories.map((category) => (
             <Button
               key={category.key}
-              variant={activeCategory === (category.key as keyof typeof galleryData) ? "default" : "outline"}
-              onClick={() => setActiveCategory(category.key as keyof typeof galleryData)}
+              variant={activeCategory === category.key ? "default" : "outline"}
+              onClick={() => setActiveCategory(category.key)}
               className={
-                activeCategory === (category.key as keyof typeof galleryData)
+                activeCategory === category.key
                   ? "bg-primary text-white"
                   : "bg-white text-primary border-primary hover:bg-primary hover:text-white"
               }
@@ -201,8 +205,8 @@ export const VisualGallery = () => {
           ))}
         </div>
 
-        {/* Grid: 3 per row (bigger tiles) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-7xl mx-auto">
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {images.map((image, idx) => (
             <button
               key={`${activeCategory}-${idx}`}
@@ -212,13 +216,11 @@ export const VisualGallery = () => {
             >
               <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow rounded-xl">
                 <div className="relative">
-                  {/* Bigger, consistent tiles */}
                   <img
                     src={image.src}
                     alt={image.alt}
                     className="w-full aspect-[4/3] md:aspect-[16/10] object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                   />
-                  {/* Hover hint */}
                   <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                   <div className="pointer-events-none absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                     <span className="inline-flex items-center gap-2 text-white text-xs font-medium bg-black/50 backdrop-blur px-2.5 py-1.5 rounded-full">
@@ -227,7 +229,6 @@ export const VisualGallery = () => {
                     </span>
                   </div>
                 </div>
-                {/* Caption */}
                 <figcaption className="px-3 py-3 text-sm text-gray-700">
                   {image.alt}
                 </figcaption>
@@ -243,33 +244,24 @@ export const VisualGallery = () => {
           className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-sm flex items-center justify-center"
           onClick={closeLightbox}
         >
-          {/* Close */}
           <button
             aria-label="Close"
-            onClick={(e) => {
-              e.stopPropagation();
-              closeLightbox();
-            }}
+            onClick={(e) => { e.stopPropagation(); closeLightbox(); }}
             className="absolute top-4 right-4 rounded-full bg-white/10 hover:bg-white/20 p-2 text-white"
           >
             <X className="w-6 h-6" />
           </button>
 
-          {/* Prev */}
           {images.length > 1 && (
             <button
               aria-label="Previous image"
-              onClick={(e) => {
-                e.stopPropagation();
-                showPrev();
-              }}
+              onClick={(e) => { e.stopPropagation(); showPrev(); }}
               className="absolute left-4 md:left-8 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white"
             >
               <ChevronLeft className="w-7 h-7" />
             </button>
           )}
 
-          {/* Image */}
           <div
             className="relative max-w-[92vw] max-h-[82vh]"
             onClick={(e) => e.stopPropagation()}
@@ -286,14 +278,10 @@ export const VisualGallery = () => {
             </div>
           </div>
 
-          {/* Next */}
           {images.length > 1 && (
             <button
               aria-label="Next image"
-              onClick={(e) => {
-                e.stopPropagation();
-                showNext();
-              }}
+              onClick={(e) => { e.stopPropagation(); showNext(); }}
               className="absolute right-4 md:right-8 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white"
             >
               <ChevronRight className="w-7 h-7" />

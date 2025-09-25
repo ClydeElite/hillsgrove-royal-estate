@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export const FloatingButtons = () => {
   // Display/format once, reuse safely
-  const phoneForTel = "+971585998161";              // keep the +
+  const phoneForTel = "+971585952205";              // keep the +
   const phoneForWA = phoneForTel.replace(/\D/g, ""); // digits only for wa.me
 
   const handleWhatsApp = () => {

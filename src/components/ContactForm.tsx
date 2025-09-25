@@ -7,18 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/logo-white.png";
-// ⬇️ Add a QR image in your repo and update the path:
-import qr from "@/assets/qr.png"; // e.g. src/assets/qr/ola-whatsapp-qr.png
+import logo from "@/assets/logo.png";
+import qr from "@/assets/qr.png";
 
-const AGENT_PHONE_DISPLAY = "+971 58 599 8161";         // <-- update to real number
-const AGENT_PHONE_TEL = "tel:+971585998161";            // <-- update to match display
+const AGENT_PHONE_DISPLAY = "+971 58 599 8161";
+const AGENT_PHONE_TEL = "tel:+971585998161";
 const CONTACT_ENDPOINT =
-  import.meta?.env?.VITE_CONTACT_ENDPOINT ?? "/api/contact"; // works on Vite or Next
+  import.meta?.env?.VITE_CONTACT_ENDPOINT ?? "/api/contact";
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-  const [website, setWebsite] = useState(""); // honeypot (should stay empty)
+  const [website, setWebsite] = useState(""); // honeypot
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
@@ -34,7 +33,7 @@ export const ContactForm = () => {
       const res = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, website }), // include honeypot
+        body: JSON.stringify({ ...formData, website }),
       });
       if (!res.ok) throw new Error(await res.text());
 
@@ -44,7 +43,7 @@ export const ContactForm = () => {
       });
       setFormData({ name: "", email: "", phone: "", message: "" });
       setWebsite("");
-    } catch (err) {
+    } catch {
       toast({
         variant: "destructive",
         title: "Submission failed",
@@ -57,21 +56,21 @@ export const ContactForm = () => {
 
   return (
     <section id="contact" className="relative isolate py-20 bg-primary text-white">
-      {/* soft dotted pattern */}
+      {/* subtle dot pattern (white) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-20"
+        className="pointer-events-none absolute inset-0 opacity-15"
         style={{
-          backgroundImage: "radial-gradient(currentColor 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
           backgroundSize: "22px 22px",
-          color: "hsl(var(--luxury-gold))",
         }}
       />
+      {/* KEEPING YOUR ORIGINAL WIDTH */}
       <div className="max-w-6xl mx-auto px-6 relative">
         <div className="text-center mb-12">
-          <Badge className="bg-orange-500 text-white mb-4">GET IN TOUCH</Badge>
+          <Badge className="bg-white text-foreground mb-4">GET IN TOUCH</Badge>
           <h2 className="text-4xl font-bold mb-4">
-            Contact <span className="text-orange-500">Our Expert</span>
+            Contact <span className="bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Our Expert</span>
           </h2>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
             Ready to view this exceptional property? Get in touch with our expert agent for exclusive access
@@ -83,13 +82,13 @@ export const ContactForm = () => {
           <div className="space-y-8">
             <Card className="border-white/20 bg-white/10 backdrop-blur-md shadow-lg">
               <CardHeader>
-                <CardTitle className="text-orange-500 text-2xl">Elite Property Brokerage</CardTitle>
+                <CardTitle className="text-2xl text-white">Elite Property Brokerage LLC</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6 text-white/90">
 
                 <div className="flex items-start gap-4">
                   <div className="bg-white/10 p-3 rounded-full">
-                    <Mail className="w-5 h-5 text-orange-500" />
+                    <Mail className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1 text-white">Email</h4>
@@ -99,7 +98,7 @@ export const ContactForm = () => {
 
                 <div className="flex items-start gap-4">
                   <div className="bg-white/10 p-3 rounded-full">
-                    <Phone className="w-5 h-5 text-orange-500" />
+                    <Phone className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1 text-white">Call Us Directly</h4>
@@ -110,9 +109,10 @@ export const ContactForm = () => {
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-start gap-4">
                   <div className="bg-white/10 p-3 rounded-full">
-                    <MapPin className="w-5 h-5 text-orange-500" />
+                    <MapPin className="w-5 h-5 text-white" />
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1 text-white">Office Address</h4>
@@ -122,18 +122,22 @@ export const ContactForm = () => {
                   </div>
                 </div>
 
-                {/* Replaced RERA/Permit/Reference with Logo + QR */}
+                {/* Logo + QR (same size) */}
                 <div className="pt-4 border-t border-white/20 flex items-center justify-between gap-6">
                   <div className="flex items-center gap-3">
-                    <img src={logo} alt="Elite Property Brokerage" className="h-10 w-auto" />
+                    <img
+                      src={logo}
+                      alt="Elite Property Brokerage"
+                      className="h-24 w-24 rounded-md bg-white/90 p-1 object-contain"
+                    />
                   </div>
                   <div className="text-right">
                     <img
                       src={qr}
-                      alt="Scan to WhatsApp Ola"
+                      alt="Scan to WhatsApp"
                       className="h-24 w-24 rounded-md bg-white/90 p-1"
                     />
-                    <p className="text-xs text-white/80 mt-1">Scan to WhatsApp</p>
+                    
                   </div>
                 </div>
               </CardContent>
@@ -219,15 +223,13 @@ export const ContactForm = () => {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white shadow-[0_10px_30px_rgba(234,179,8,0.25)]"
+                  className="w-full bg-white text-foreground hover:bg-white/90"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Sending..." : (<><Send className="w-5 h-5 mr-2" />Send Inquiry</>)}
                 </Button>
 
-                <p className="text-sm text-white/70 text-center">
-                  * Required fields. We'll get back to you within 24 hours.
-                </p>
+                
               </form>
             </CardContent>
           </Card>
