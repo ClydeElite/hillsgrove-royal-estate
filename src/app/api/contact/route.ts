@@ -13,16 +13,21 @@ if (process.env.NODE_ENV !== "production") global.prisma = prisma;
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-const allowedOrigins = (process.env.FRONTEND_ORIGINS ?? process.env.FRONTEND_ORIGIN ?? "http://localhost:3000")
+const allowedOrigins = (process.env.FRONTEND_ORIGINS ?? process.env.FRONTEND_ORIGIN ?? "")
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
 
+function resolveAllowOrigin(requestOrigin: string | null) {
+  if (!requestOrigin) return allowedOrigins[0] ?? "*";
+  if (allowedOrigins.length === 0 || allowedOrigins.includes("*")) return requestOrigin;
+  if (allowedOrigins.includes(requestOrigin)) return requestOrigin;
+  return allowedOrigins[0] ?? requestOrigin;
+}
+
 function buildCorsHeaders(request: Request) {
   const requestOrigin = request.headers.get("origin");
-  const allowOrigin = requestOrigin && allowedOrigins.includes(requestOrigin)
-    ? requestOrigin
-    : allowedOrigins[0] ?? "*";
+  const allowOrigin = resolveAllowOrigin(requestOrigin);
 
   return new Headers({
     "Access-Control-Allow-Origin": allowOrigin,
