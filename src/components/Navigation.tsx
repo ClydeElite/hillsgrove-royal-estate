@@ -1,7 +1,9 @@
+﻿'use client';
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.png";
+import Image from "next/image";
 
 const navigationItems = [
   { label: "Home", href: "#hero" },
@@ -60,10 +62,11 @@ export const Navigation = () => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <a href="#hero" className="flex-shrink-0 inline-flex items-center gap-2">
-              <img
+              <Image
                 src={logo}
                 alt="Elite Property Brokerage"
                 className="h-14 w-auto md:h-16 transition-transform duration-200 hover:scale-[1.03] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)]"
+                priority
               />
             </a>
 

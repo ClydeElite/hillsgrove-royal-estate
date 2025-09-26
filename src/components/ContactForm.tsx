@@ -1,4 +1,5 @@
-﻿import { useState } from "react";
+﻿'use client';
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,14 +10,12 @@ import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/logo.png";
 import qr from "@/assets/qr.png";
+import Image from "next/image";
 
 const AGENT_PHONE_DISPLAY = "+971 58 599 8161";
 const AGENT_PHONE_TEL = "tel:+971585998161";
 
-const CONTACT_ENDPOINT =
-  import.meta.env.VITE_CONTACT_ENDPOINT ||
-  // default to Next.js dev API when running Vite locally
-  (import.meta.env.DEV ? "http://localhost:3000/api/contact" : "/api/contact");
+const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ?? "/api/contact";
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
@@ -128,19 +127,20 @@ export const ContactForm = () => {
                 {/* Logo + QR (same size) */}
                 <div className="pt-4 border-t border-white/20 flex items-center justify-between gap-6">
                   <div className="flex items-center gap-3">
-                    <img
+                    <Image
                       src={logo}
                       alt="Elite Property Brokerage"
                       className="h-24 w-24 rounded-md bg-white/90 p-1 object-contain"
+                      priority
                     />
                   </div>
                   <div className="text-right">
-                    <img
+                    <Image
                       src={qr}
                       alt="Scan to WhatsApp"
                       className="h-24 w-24 rounded-md bg-white/90 p-1"
+                      priority
                     />
-                    
                   </div>
                 </div>
               </CardContent>
@@ -241,6 +241,3 @@ export const ContactForm = () => {
     </section>
   );
 };
-
-
-

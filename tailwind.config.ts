@@ -1,15 +1,11 @@
-import animate from "tailwindcss-animate";
+﻿import animate from "tailwindcss-animate";
 
-export default {
+const config = {
   darkMode: ["class"],
-  content: [
-    "./index.html",
-    "./src/**/*.{ts,tsx,js,jsx}",      // make sure this covers your src
-  ],
+  content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        // 👇 these tokens make classes like bg-background, text-foreground, border-border, etc.
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -48,12 +44,20 @@ export default {
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
         "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
+        ripple: {
+          "0%": { transform: "scale(0.95)", opacity: "0.75" },
+          "70%": { transform: "scale(1.35)", opacity: "0" },
+          "100%": { transform: "scale(1.5)", opacity: "0" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        ripple: "ripple 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite",
       },
     },
   },
   plugins: [animate],
 };
+
+export default config;

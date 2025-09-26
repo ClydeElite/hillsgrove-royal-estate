@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -5,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Play, Pause, Volume2, VolumeX, Maximize, RotateCcw } from "lucide-react";
 
 // Local assets
-import tourMp4 from "@/assets/videos/tour.mp4";           // <-- your file
+const tourMp4Url = "/videos/tour.mp4";
 // import tourWebm from "@/assets/videos/tour.webm";      // (optional, if you have)
 // import tourPoster from "@/assets/videos/tour-poster.jpg"; // (optional)
 
@@ -201,7 +202,7 @@ export const VideoSection = () => {
               >
                 {/* Prefer modern codec first if you have it */}
                 {/* {tourWebm && <source src={tourWebm} type="video/webm" />} */}
-                <source src={tourMp4} type="video/mp4" />
+                <source src={tourMp4Url} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -313,7 +314,7 @@ export const VideoSection = () => {
           <h3 className="text-2xl font-semibold mb-4">Complete Property Walkthrough</h3>
           <p className="text-muted-foreground max-w-3xl mx-auto">
             Experience every room, every detail, and every luxury feature of this magnificent 7-bedroom villa. 
-            From the grand entrance to the private elevator, swimming pool, and premium amenities—see it all in this comprehensive video tour.
+            From the grand entrance to the private elevator, swimming pool, and premium amenitiesâ€”see it all in this comprehensive video tour.
           </p>
         </div>
       </div>

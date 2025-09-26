@@ -1,4 +1,4 @@
-"use client";
+﻿'use client';
 
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle } from "lucide-react";
@@ -72,3 +72,4 @@ export const FloatingButtons = () => {
     </div>
   );
 };
+

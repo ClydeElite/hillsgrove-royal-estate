@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
+﻿'use client';
+import { useState, useEffect, useCallback, type TouchEvent } from "react";
+import Image, { StaticImageData } from "next/image";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 
-// Images…
 import exterior1 from "@/assets/gallery/DSC03480-HDR.jpg";
 import exterior2 from "@/assets/gallery/DSC03471-HDR.jpg";
 import exterior3 from "@/assets/gallery/DSC02964-HDR.jpg";
@@ -42,10 +43,12 @@ import interior7 from "@/assets/gallery/DSC03180-HDR.jpg";
 import interior8 from "@/assets/gallery/DSC03249-HDR.jpg";
 import interior9 from "@/assets/gallery/DSC03261-HDR.jpg";
 import interior10 from "@/assets/gallery/DSC03240-HDR.jpg";
-import aminities1 from "@/assets/gallery/DSC03297-HDR.jpg";
-import aminities2 from "@/assets/gallery/DSC03318-HDR.jpg";
-import aminities3 from "@/assets/gallery/DSC03333-HDR.jpg";
-import aminities4 from "@/assets/gallery/DSC03372-HDR.jpg";
+import amenities1 from "@/assets/gallery/DSC03297-HDR.jpg";
+import amenities2 from "@/assets/gallery/DSC03318-HDR.jpg";
+import amenities3 from "@/assets/gallery/DSC03333-HDR.jpg";
+import amenities4 from "@/assets/gallery/DSC03372-HDR.jpg";
+
+type GalleryItem = { src: StaticImageData; alt: string };
 
 const galleryData = {
   exterior: [
@@ -70,7 +73,7 @@ const galleryData = {
   ],
   bedrooms: [
     { src: bedroom3, alt: "Primary Suite – Panoramic Pool & Park Views" },
-    { src: bedroom6, alt: "Designer’s Suite – Feature Wall & Balcony" },
+    { src: bedroom6, alt: "Designer Suite – Feature Wall & Balcony" },
     { src: bedroom2, alt: "Canopy Suite – Dressing Room & Terrace Access" },
     { src: bedroom5, alt: "Garden-View Junior Suite – Walk-In Wardrobe" },
     { src: bedroom1, alt: "Serenity Suite – Sky-Blue Corner Lounge" },
@@ -78,13 +81,13 @@ const galleryData = {
     { src: bedroom7, alt: "Guest Suite – Cozy & Quiet Retreat" },
   ],
   bathrooms: [
-    { src: bathroom1, alt: "Primary bathroom" },
-    { src: bathroom2, alt: "Guest bathroom" },
-    { src: bathroom3, alt: "Children’s bathroom" },
-    { src: bathroom4, alt: "Guest bathroom 2" },
-    { src: bathroom5, alt: "Primary bathroom 2" },
-    { src: bathroom6, alt: "Guest bathroom 3" },
-    { src: bathroom7, alt: "Primary bathroom 3" },
+    { src: bathroom1, alt: "Primary Bathroom" },
+    { src: bathroom2, alt: "Guest Bathroom" },
+    { src: bathroom3, alt: "Children's Bathroom" },
+    { src: bathroom4, alt: "Guest Bathroom 2" },
+    { src: bathroom5, alt: "Primary Bathroom 2" },
+    { src: bathroom6, alt: "Guest Bathroom 3" },
+    { src: bathroom7, alt: "Primary Bathroom 3" },
   ],
   outdoor: [
     { src: outdoor1, alt: "Large Terrace Seating Area" },
@@ -96,12 +99,14 @@ const galleryData = {
     { src: outdoor7, alt: "Family BBQ Pergola" },
   ],
   amenities: [
-    { src: aminities1, alt: "Entertainment Lounge" },
-    { src: aminities2, alt: "Sports Room" },
-    { src: aminities3, alt: "Fitness Room" },
-    { src: aminities4, alt: "Covered Parking" },
+    { src: amenities1, alt: "Entertainment Lounge" },
+    { src: amenities2, alt: "Sports Room" },
+    { src: amenities3, alt: "Fitness Room" },
+    { src: amenities4, alt: "Covered Parking" },
   ],
-};
+} as const satisfies Record<string, GalleryItem[]>;
+
+type GalleryCategory = keyof typeof galleryData;
 
 const categories = [
   { key: "exterior", label: "Outside Views" },
@@ -113,12 +118,13 @@ const categories = [
 ] as const;
 
 export const VisualGallery = () => {
-  const [activeCategory, setActiveCategory] = useState<keyof typeof galleryData>("exterior");
+  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("exterior");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const images = galleryData[activeCategory];
+  const totalImages = images.length;
 
   const openLightbox = (index: number) => {
     setLightboxIndex(index);
@@ -132,12 +138,12 @@ export const VisualGallery = () => {
   };
 
   const showPrev = useCallback(() => {
-    setLightboxIndex((i) => (i - 1 + images.length) % images.length);
-  }, [images.length]);
+    setLightboxIndex((i) => (i - 1 + totalImages) % totalImages);
+  }, [totalImages]);
 
   const showNext = useCallback(() => {
-    setLightboxIndex((i) => (i + 1) % images.length);
-  }, [images.length]);
+    setLightboxIndex((i) => (i + 1) % totalImages);
+  }, [totalImages]);
 
   useEffect(() => {
     setLightboxOpen(false);
@@ -154,10 +160,10 @@ export const VisualGallery = () => {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxOpen, images.length, showPrev, showNext]);
+  }, [lightboxOpen, showNext, showPrev]);
 
-  const onTouchStart = (e: React.TouchEvent) => setTouchStartX(e.touches[0].clientX);
-  const onTouchEnd = (e: React.TouchEvent) => {
+  const onTouchStart = (e: TouchEvent<HTMLDivElement>) => setTouchStartX(e.touches[0].clientX);
+  const onTouchEnd = (e: TouchEvent<HTMLDivElement>) => {
     if (touchStartX === null) return;
     const dx = e.changedTouches[0].clientX - touchStartX;
     if (Math.abs(dx) > 40) {
@@ -172,7 +178,6 @@ export const VisualGallery = () => {
 
   return (
     <section id="gallery" className="py-20 bg-gray-50 scroll-mt-24">
-      {/* width: 100% mobile, 90% on lg+ */}
       <div className="mx-auto w-full lg:w-[90%] px-4 sm:px-6">
         <div className="text-center mb-12">
           <Badge className="bg-primary text-primary-foreground mb-4">VISUAL GALLERY</Badge>
@@ -187,7 +192,6 @@ export const VisualGallery = () => {
           </p>
         </div>
 
-        {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-4 mb-10">
           {categories.map((category) => (
             <Button
@@ -205,7 +209,6 @@ export const VisualGallery = () => {
           ))}
         </div>
 
-        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
           {images.map((image, idx) => (
             <button
@@ -215,11 +218,13 @@ export const VisualGallery = () => {
               aria-label={`Open ${image.alt}`}
             >
               <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow rounded-xl">
-                <div className="relative">
-                  <img
+                <div className="relative aspect-[4/3] md:aspect-[16/10]">
+                  <Image
                     src={image.src}
                     alt={image.alt}
-                    className="w-full aspect-[4/3] md:aspect-[16/10] object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
                   <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />
                   <div className="pointer-events-none absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -238,7 +243,6 @@ export const VisualGallery = () => {
         </div>
       </div>
 
-      {/* LIGHTBOX */}
       {lightboxOpen && (
         <div
           className="fixed inset-0 z-[1000] bg-black/90 backdrop-blur-sm flex items-center justify-center"
@@ -252,7 +256,7 @@ export const VisualGallery = () => {
             <X className="w-6 h-6" />
           </button>
 
-          {images.length > 1 && (
+          {totalImages > 1 && (
             <button
               aria-label="Previous image"
               onClick={(e) => { e.stopPropagation(); showPrev(); }}
@@ -268,17 +272,19 @@ export const VisualGallery = () => {
             onTouchStart={onTouchStart}
             onTouchEnd={onTouchEnd}
           >
-            <img
+            <Image
               src={images[lightboxIndex].src}
               alt={images[lightboxIndex].alt}
-              className="max-w-[92vw] max-h-[82vh] object-contain rounded-lg shadow-2xl"
+              className="max-w-[92vw] max-h-[82vh] h-auto w-auto object-contain rounded-lg shadow-2xl"
+              sizes="(max-width: 768px) 100vw, 80vw"
+              priority
             />
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/80 text-sm text-center">
-              {lightboxIndex + 1} / {images.length} — {images[lightboxIndex].alt}
+              {lightboxIndex + 1} / {totalImages} – {images[lightboxIndex].alt}
             </div>
           </div>
 
-          {images.length > 1 && (
+          {totalImages > 1 && (
             <button
               aria-label="Next image"
               onClick={(e) => { e.stopPropagation(); showNext(); }}
@@ -292,3 +298,5 @@ export const VisualGallery = () => {
     </section>
   );
 };
+
+

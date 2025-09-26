@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 /generated/prisma
+
+.next
+.vite
+backend_old/
+node_modules_vite/
