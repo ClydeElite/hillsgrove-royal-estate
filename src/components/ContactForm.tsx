@@ -1,4 +1,4 @@
-import { useState } from "react";
+﻿import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,8 +12,11 @@ import qr from "@/assets/qr.png";
 
 const AGENT_PHONE_DISPLAY = "+971 58 599 8161";
 const AGENT_PHONE_TEL = "tel:+971585998161";
+
 const CONTACT_ENDPOINT =
-  import.meta?.env?.VITE_CONTACT_ENDPOINT ?? "/api/contact";
+  import.meta.env.VITE_CONTACT_ENDPOINT ||
+  // default to Next.js dev API when running Vite locally
+  (import.meta.env.DEV ? "http://localhost:3000/api/contact" : "/api/contact");
 
 export const ContactForm = () => {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
@@ -238,3 +241,6 @@ export const ContactForm = () => {
     </section>
   );
 };
+
+
+

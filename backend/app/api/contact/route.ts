@@ -5,6 +5,7 @@ import { google, sheets_v4 } from "googleapis";
 export const runtime = "nodejs";
 
 declare global {
+  // reuse prisma in dev to avoid hot-reload warning
   var prisma: PrismaClient | undefined;
 }
 const prisma = global.prisma ?? new PrismaClient();
@@ -143,6 +144,12 @@ export async function OPTIONS(request: Request) {
   return new Response(null, { status: 204, headers: buildCorsHeaders(request) });
 }
 
+function escapeHtml(s: string) {
+  return s.replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" } as Record<string, string>)[c]!
+  );
+}
+
 export async function POST(request: Request) {
   const corsHeaders = buildCorsHeaders(request);
 
@@ -185,6 +192,19 @@ IP: ${ip}
 UA: ${userAgent}
 Submitted: ${new Date().toLocaleString()}
       `.trim(),
+      html: `
+        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">
+          <tr><td style="padding:16px 0"><h2 style="margin:0">New Property Inquiry</h2></td></tr>
+          <tr><td style="border-top:1px solid #eee"></td></tr>
+          <tr><td style="padding:12px 0"><strong>Name:</strong> ${escapeHtml(name)}</td></tr>
+          <tr><td style="padding:6px 0"><strong>Email:</strong> ${escapeHtml(email)}</td></tr>
+          <tr><td style="padding:6px 0"><strong>Phone:</strong> ${escapeHtml(phone)}</td></tr>
+          <tr><td style="padding:12px 0"><strong>Message:</strong><br/>${escapeHtml(message || "(no message)")}</td></tr>
+          <tr><td style="padding:12px 0;color:#666;font-size:12px">
+            IP: ${escapeHtml(ip)} | UA: ${escapeHtml(userAgent)}
+          </td></tr>
+        </table>
+      `,
     });
 
     if (error) {
