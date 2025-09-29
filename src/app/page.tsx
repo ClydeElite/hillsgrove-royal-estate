@@ -33,7 +33,7 @@ import interiorImage from "@/assets/villa-interior.jpg";
 import qr from "@/assets/qr.png";
 
 const heroImageUrl = typeof heroImage === "string" ? heroImage : heroImage.src;
-const AMENITIES_IMAGE_URL = "https://images.unsplash.com/photo-1616594039964-197d1c016c92?auto=format&fit=crop&w=1200&q=80";
+const AMENITIES_IMAGE_URL = "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80";
 
 const Counter = ({ to, duration = 0.45 }: { to: number; duration?: number }) => {
   const [n, setN] = useState(0);
@@ -245,18 +245,18 @@ export default function HomePage() {
           </div>
 
           <Card className="bg-primary text-primary-foreground overflow-hidden">
-            <CardContent className="px-8 py-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <CardContent className="px-8 py-10 grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] items-start">
               <div>
                 <Badge className="bg-white text-foreground mb-4">Luxury Highlights</Badge>
                 <h3 className="text-3xl font-semibold mb-4">Every Amenity Curated for Prestigious Living</h3>
                 <p className="text-white/80 mb-6">
                   From the private cinema to the spa-grade wellness suite, this residence is designed for refined living and entertaining at the highest level.
                 </p>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-white/90">
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-base text-white/95">
                   {["Private elevator access", "7-car basement parking", "Dedicated home cinema", "Spa with sauna & steam", "Full smart-home automation", "Outdoor lounge with BBQ"].map((amenity) => (
-                    <li key={amenity} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 mt-1" />
-                      <span>{amenity}</span>
+                    <li key={amenity} className="flex items-start gap-3 rounded-xl bg-white/5 px-4 py-3 ring-1 ring-white/10 hover:ring-white/25 transition">
+                      <Check className="w-5 h-5 mt-1 text-white/90" />
+                      <span className="font-semibold tracking-wide">{amenity}</span>
                     </li>
                   ))}
                 </ul>
@@ -267,17 +267,17 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
+                className="flex justify-center lg:justify-end h-full"
               >
-                <div className="relative">
+                <div className="relative aspect-[3/4] w-full max-w-[380px] lg:max-w-[420px] rounded-3xl shadow-2xl overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[360px]">
                   <Image
                     src={AMENITIES_IMAGE_URL}
                     alt="Luxury amenities"
-                    width={1200}
-                    height={800}
-                    className="rounded-2xl shadow-2xl object-cover"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 480px"
                   />
-                  <div className="absolute inset-0 rounded-2xl border border-white/20" />
+                  <div className="pointer-events-none absolute inset-0 rounded-3xl border border-white/20" />
                 </div>
               </motion.div>
             </CardContent>
@@ -364,9 +364,6 @@ export default function HomePage() {
     </div>
   );
 }
-
-
-
 
 
 
