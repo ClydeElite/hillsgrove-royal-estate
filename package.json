@@ -6,7 +6,7 @@
         "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prisma:generate": "npx prisma generate --no-engine",
+    "prisma:generate": "npx prisma generate",
     "prisma:migrate:deploy": "npx prisma migrate deploy && npm run prisma:generate",
     "vercel-build": "npm run prisma:migrate:deploy && npm run build"
     },

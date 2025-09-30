@@ -29,3 +29,4 @@ dist-ssr
 .vite
 backend_old/
 node_modules_vite/
+.vercel
