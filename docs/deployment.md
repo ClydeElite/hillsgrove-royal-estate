@@ -6,7 +6,7 @@ All required keys live in `.env` (server) and `.env.local` (client hints). Mirro
 
 | Variable | Source | Notes |
 | --- | --- | --- |
-| `DATABASE_URL` | `.env` | Point to your production database. Leave as `file:./dev.db` only for local SQLite. |
+| `DATABASE_URL` | `.env` | Point to your Postgres database (Neon, Supabase, Railway, etc.). Use the same URL locally so Prisma runs against Postgres during dev. |
 | `RESEND_API_KEY` | `.env` | Found in your Resend dashboard. |
 | `MAIL_FROM` | `.env` | Sender domain registered with Resend. |
 | `MAIL_TO` | `.env` | Recipient mailbox for enquiries. |
@@ -82,3 +82,4 @@ vercel --prod         # build and deploy current branch to production
 - Browser console shows no CORS errors; POST hits `/api/contact` on production.
 
 Keep this checklist handy for post-deploy verification.
+
