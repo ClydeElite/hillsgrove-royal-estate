@@ -98,6 +98,18 @@ export const VideoSection = () => {
     const onKey = (e: KeyboardEvent) => {
       const video = videoRef.current;
       if (!video) return;
+
+      const active = document.activeElement as HTMLElement | null;
+      if (active) {
+        const tag = active.tagName?.toUpperCase();
+        const isTypingElement =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          tag === "SELECT" ||
+          active.isContentEditable;
+        if (isTypingElement) return;
+      }
+
       if (["Space", "KeyP"].includes(e.code)) {
         e.preventDefault();
         if (video.paused) {
