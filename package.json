@@ -4,11 +4,11 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "prisma:generate": "npx prisma generate",
-    "prisma:migrate:deploy": "npx prisma migrate deploy && npm run prisma:generate",
-    "vercel-build": "npm run prisma:migrate:deploy && npm run build"
+        "build": "next build",
+        "start": "next start",
+        "prisma:generate": "npx prisma generate",
+        "prisma:migrate:deploy": "npx prisma migrate deploy && npm run prisma:generate",
+        "vercel-build": "npm run prisma:migrate:deploy && npm run build"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.10.0",
@@ -50,12 +50,12 @@
         "input-otp": "^1.4.2",
         "lucide-react": "^0.462.0",
         "next": "15.5.4",
+        "nodemailer": "^7.0.6",
         "prisma": "^6.16.2",
         "react": "19.1.0",
         "react-dom": "19.1.0",
         "react-hook-form": "^7.61.1",
         "react-resizable-panels": "^2.1.9",
-        "resend": "^6.1.0",
         "tailwind-merge": "^2.6.0",
         "tailwindcss-animate": "^1.0.7",
         "zod": "^3.25.76"
@@ -63,6 +63,7 @@
     "devDependencies": {
         "@eslint/eslintrc": "^3",
         "@types/node": "^20",
+        "@types/nodemailer": "^7.0.2",
         "@types/react": "^19",
         "@types/react-dom": "^19",
         "autoprefixer": "^10.4.19",

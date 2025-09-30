@@ -1,17 +1,47 @@
-﻿import { PrismaClient } from "@prisma/client";
-import { Resend } from "resend";
+import { PrismaClient } from "@prisma/client";
+import nodemailer from "nodemailer";
+import type { Transporter } from "nodemailer";
 
 export const runtime = "nodejs";
 
 declare global {
   // reuse prisma in dev to avoid creating multiple instances
   var prisma: PrismaClient | undefined;
+  var smtpTransporter: Transporter | null | undefined;
 }
 
 const prisma = global.prisma ?? new PrismaClient();
 if (process.env.NODE_ENV !== "production") global.prisma = prisma;
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
+function createSmtpTransporter(): Transporter | null {
+  const host = process.env.SMTP_HOST;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASSWORD;
+
+  if (!host || !user || !pass) {
+    console.warn("SMTP configuration is incomplete. Emails will not be sent.");
+    return null;
+  }
+
+  const port = Number(process.env.SMTP_PORT ?? "465");
+  const secureFlag = process.env.SMTP_SECURE?.toLowerCase();
+  const secure = secureFlag ? secureFlag === "true" : port === 465;
+
+  return nodemailer.createTransport({
+    host,
+    port,
+    secure,
+    auth: {
+      user,
+      pass,
+    },
+  });
+}
+
+const smtpTransporter = global.smtpTransporter ?? createSmtpTransporter();
+if (process.env.NODE_ENV !== "production") {
+  global.smtpTransporter = smtpTransporter;
+}
 
 const allowedOrigins = (process.env.FRONTEND_ORIGINS ?? process.env.FRONTEND_ORIGIN ?? "")
   .split(",")
@@ -86,6 +116,56 @@ function escapeHtml(input: string) {
   );
 }
 
+async function sendNotificationEmail({
+  name,
+  email,
+  phone,
+  message,
+  ip,
+  userAgent,
+}: Omit<InquiryRecord, "id" | "createdAt">) {
+  if (!smtpTransporter) {
+    throw new Error("SMTP transporter is not configured");
+  }
+
+  const fromAddress = process.env.MAIL_FROM ?? process.env.SMTP_USER;
+  const toAddress = process.env.MAIL_TO ?? process.env.SMTP_USER;
+
+  if (!fromAddress || !toAddress) {
+    throw new Error("MAIL_FROM or MAIL_TO environment variables are missing");
+  }
+
+  await smtpTransporter.sendMail({
+    from: fromAddress,
+    to: toAddress,
+    replyTo: email,
+    subject: `New inquiry from ${name}`,
+    text: `
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Message: ${message || "(no message)"}
+
+IP: ${ip}
+UA: ${userAgent}
+Submitted: ${new Date().toLocaleString()}
+    `.trim(),
+    html: `
+      <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">
+        <tr><td style="padding:16px 0"><h2 style="margin:0">New Property Inquiry</h2></td></tr>
+        <tr><td style="border-top:1px solid #eee"></td></tr>
+        <tr><td style="padding:12px 0"><strong>Name:</strong> ${escapeHtml(name)}</td></tr>
+        <tr><td style="padding:6px 0"><strong>Email:</strong> ${escapeHtml(email)}</td></tr>
+        <tr><td style="padding:6px 0"><strong>Phone:</strong> ${escapeHtml(phone)}</td></tr>
+        <tr><td style="padding:12px 0"><strong>Message:</strong><br/>${escapeHtml(message || "(no message)")}</td></tr>
+        <tr><td style="padding:12px 0;color:#666;font-size:12px">
+          IP: ${escapeHtml(ip)} | UA: ${escapeHtml(userAgent)}
+        </td></tr>
+      </table>
+    `,
+  });
+}
+
 export async function POST(request: Request) {
   const corsHeaders = buildCorsHeaders(request);
 
@@ -113,39 +193,7 @@ export async function POST(request: Request) {
       data: { name, email, phone, message, ip, userAgent },
     });
 
-    const { error } = await resend.emails.send({
-      from: process.env.MAIL_FROM!,
-      to: process.env.MAIL_TO!,
-      replyTo: email,
-      subject: `New inquiry from ${name}`,
-      text: `
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Message: ${message || "(no message)"}
-
-IP: ${ip}
-UA: ${userAgent}
-Submitted: ${new Date().toLocaleString()}
-      `.trim(),
-      html: `
-        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">
-          <tr><td style="padding:16px 0"><h2 style="margin:0">New Property Inquiry</h2></td></tr>
-          <tr><td style="border-top:1px solid #eee"></td></tr>
-          <tr><td style="padding:12px 0"><strong>Name:</strong> ${escapeHtml(name)}</td></tr>
-          <tr><td style="padding:6px 0"><strong>Email:</strong> ${escapeHtml(email)}</td></tr>
-          <tr><td style="padding:6px 0"><strong>Phone:</strong> ${escapeHtml(phone)}</td></tr>
-          <tr><td style="padding:12px 0"><strong>Message:</strong><br/>${escapeHtml(message || "(no message)")}</td></tr>
-          <tr><td style="padding:12px 0;color:#666;font-size:12px">
-            IP: ${escapeHtml(ip)} | UA: ${escapeHtml(userAgent)}
-          </td></tr>
-        </table>
-      `,
-    });
-
-    if (error) {
-      console.error("Resend error", error);
-    }
+    await sendNotificationEmail({ name, email, phone, message, ip, userAgent });
 
     await sendZapierWebhook({
       id: saved.id,
@@ -169,4 +217,3 @@ Submitted: ${new Date().toLocaleString()}
     return new Response(JSON.stringify({ error: "Server error" }), { status: 500, headers: corsHeaders });
   }
 }
-

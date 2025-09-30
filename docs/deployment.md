@@ -7,8 +7,12 @@ All required keys live in `.env` (server) and `.env.local` (client hints). Mirro
 | Variable | Source | Notes |
 | --- | --- | --- |
 | `DATABASE_URL` | `.env` | Point to your Postgres database (Neon, Supabase, Railway, etc.). Use the same URL locally so Prisma runs against Postgres during dev. |
-| `RESEND_API_KEY` | `.env` | Found in your Resend dashboard. |
-| `MAIL_FROM` | `.env` | Sender domain registered with Resend. |
+| `SMTP_HOST` | `.env` | SMTP server hostname from your email provider. |
+| `SMTP_PORT` | `.env` | Usually `465` for SSL or `587` for STARTTLS; match your provider settings. |
+| `SMTP_SECURE` | `.env` | Set to `true` when using port 465, otherwise `false` for STARTTLS. |
+| `SMTP_USER` | `.env` | Mailbox/login authorised to send (e.g. marketing@elitepropertydxb.com). |
+| `SMTP_PASSWORD` | `.env` | Password or app password for the SMTP user. |
+| `MAIL_FROM` | `.env` | Friendly "From" header; keep it aligned with the authenticated mailbox. |
 | `MAIL_TO` | `.env` | Recipient mailbox for enquiries. |
 | `ZAPIER_WEBHOOK_URL` | `.env` | Zapier catch hook URL. |
 | `NEXT_PUBLIC_CONTACT_ENDPOINT` | optional (`.env.local`) | Only set if you must hit a different origin; otherwise omit so the form posts to same origin. |
@@ -25,7 +29,11 @@ vercel login
 
 # Add each secret (use `--prod` for production values)
 vercel env add DATABASE_URL production
-vercel env add RESEND_API_KEY production
+vercel env add SMTP_HOST production
+vercel env add SMTP_PORT production
+vercel env add SMTP_SECURE production
+vercel env add SMTP_USER production
+vercel env add SMTP_PASSWORD production
 vercel env add MAIL_FROM production
 vercel env add MAIL_TO production
 vercel env add ZAPIER_WEBHOOK_URL production
@@ -35,6 +43,14 @@ vercel env add FRONTEND_ORIGINS production
 
 # Repeat for the preview environment if required
 vercel env add DATABASE_URL preview
+vercel env add SMTP_HOST preview
+vercel env add SMTP_PORT preview
+vercel env add SMTP_SECURE preview
+vercel env add SMTP_USER preview
+vercel env add SMTP_PASSWORD preview
+vercel env add MAIL_FROM preview
+vercel env add MAIL_TO preview
+vercel env add ZAPIER_WEBHOOK_URL preview
 ...
 ```
 
@@ -82,4 +98,7 @@ vercel --prod         # build and deploy current branch to production
 - Browser console shows no CORS errors; POST hits `/api/contact` on production.
 
 Keep this checklist handy for post-deploy verification.
+
+
+
 
