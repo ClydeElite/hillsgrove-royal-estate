@@ -30,10 +30,11 @@ import Image from "next/image";
 
 import heroImage from "@/assets/herro2.jpg";
 import interiorImage from "@/assets/villa-interior.webp";
+import exteriorImage from "@/assets/exterior.webp";
 import qr from "@/assets/qr.png";
 
 const heroImageUrl = typeof heroImage === "string" ? heroImage : heroImage.src;
-const AMENITIES_IMAGE_URL = typeof interiorImage === "string" ? interiorImage : interiorImage.src;
+const AMENITIES_IMAGE_URL = typeof exteriorImage === "string" ? exteriorImage : exteriorImage.src;
 
 const Counter = ({ to, duration = 0.45 }: { to: number; duration?: number }) => {
   const [n, setN] = useState(0);
