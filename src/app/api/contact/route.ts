@@ -1,4 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import { randomUUID } from "node:crypto";
+import { Prisma, PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
 import type { Transporter } from "nodemailer";
 
@@ -77,6 +78,88 @@ type InquiryRecord = {
   userAgent: string;
 };
 
+type InquiryInput = {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  ip?: string;
+  userAgent?: string;
+};
+
+type PersistInquiryResult = {
+  entry: InquiryRecord;
+  persisted: boolean;
+};
+
+type EmailSendResult = {
+  sent: boolean;
+  error?: string;
+};
+
+function shouldSkipDatabase(): boolean {
+  return (process.env.DATABASE_URL ?? "").trim().length === 0;
+}
+
+function buildFallbackRecord(data: InquiryInput): InquiryRecord {
+  return {
+    id: randomUUID(),
+    createdAt: new Date(),
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    message: data.message,
+    ip: data.ip?.trim() ?? "",
+    userAgent: data.userAgent?.trim() ?? "",
+  };
+}
+
+async function persistInquiry(data: InquiryInput): Promise<PersistInquiryResult> {
+  const fallback = buildFallbackRecord(data);
+
+  if (shouldSkipDatabase()) {
+    console.warn("DATABASE_URL is not configured; skipping Prisma persistence.");
+    return { entry: fallback, persisted: false };
+  }
+
+  try {
+    const saved = await prisma.contactInquiry.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+        ip: data.ip?.trim() ? data.ip.trim() : null,
+        userAgent: data.userAgent?.trim() ? data.userAgent.trim() : null,
+      },
+    });
+
+    return {
+      entry: {
+        id: saved.id,
+        createdAt: saved.createdAt,
+        name: saved.name,
+        email: saved.email,
+        phone: saved.phone,
+        message: saved.message,
+        ip: saved.ip ?? "",
+        userAgent: saved.userAgent ?? "",
+      },
+      persisted: true,
+    };
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientInitializationError ||
+      (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P1000")
+    ) {
+      console.error("Database authentication failed; continuing without persistence.", error);
+      return { entry: fallback, persisted: false };
+    }
+
+    throw error;
+  }
+}
+
 async function sendZapierWebhook(entry: InquiryRecord) {
   try {
     const url = process.env.ZAPIER_WEBHOOK_URL;
@@ -123,24 +206,27 @@ async function sendNotificationEmail({
   message,
   ip,
   userAgent,
-}: Omit<InquiryRecord, "id" | "createdAt">) {
+}: Omit<InquiryRecord, "id" | "createdAt">): Promise<EmailSendResult> {
   if (!smtpTransporter) {
-    throw new Error("SMTP transporter is not configured");
+    console.warn("SMTP transporter is not configured; skipping email notification.");
+    return { sent: false, error: "SMTP transporter is not configured" };
   }
 
   const fromAddress = process.env.MAIL_FROM ?? process.env.SMTP_USER;
   const toAddress = process.env.MAIL_TO ?? process.env.SMTP_USER;
 
   if (!fromAddress || !toAddress) {
-    throw new Error("MAIL_FROM or MAIL_TO environment variables are missing");
+    console.warn("MAIL_FROM or MAIL_TO environment variables are missing; skipping email notification.");
+    return { sent: false, error: "Mail sender or recipient is not configured" };
   }
 
-  await smtpTransporter.sendMail({
-    from: fromAddress,
-    to: toAddress,
-    replyTo: email,
-    subject: `New inquiry from ${name}`,
-    text: `
+  try {
+    await smtpTransporter.sendMail({
+      from: fromAddress,
+      to: toAddress,
+      replyTo: email,
+      subject: `New inquiry from ${name}`,
+      text: `
 Name: ${name}
 Email: ${email}
 Phone: ${phone}
@@ -149,21 +235,28 @@ Message: ${message || "(no message)"}
 IP: ${ip}
 UA: ${userAgent}
 Submitted: ${new Date().toLocaleString()}
-    `.trim(),
-    html: `
-      <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">
-        <tr><td style="padding:16px 0"><h2 style="margin:0">New Property Inquiry</h2></td></tr>
-        <tr><td style="border-top:1px solid #eee"></td></tr>
-        <tr><td style="padding:12px 0"><strong>Name:</strong> ${escapeHtml(name)}</td></tr>
-        <tr><td style="padding:6px 0"><strong>Email:</strong> ${escapeHtml(email)}</td></tr>
-        <tr><td style="padding:6px 0"><strong>Phone:</strong> ${escapeHtml(phone)}</td></tr>
-        <tr><td style="padding:12px 0"><strong>Message:</strong><br/>${escapeHtml(message || "(no message)")}</td></tr>
-        <tr><td style="padding:12px 0;color:#666;font-size:12px">
-          IP: ${escapeHtml(ip)} | UA: ${escapeHtml(userAgent)}
-        </td></tr>
-      </table>
-    `,
-  });
+      `.trim(),
+      html: `
+        <table width="100%" cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;max-width:640px;margin:0 auto">
+          <tr><td style="padding:16px 0"><h2 style="margin:0">New Property Inquiry</h2></td></tr>
+          <tr><td style="border-top:1px solid #eee"></td></tr>
+          <tr><td style="padding:12px 0"><strong>Name:</strong> ${escapeHtml(name)}</td></tr>
+          <tr><td style="padding:6px 0"><strong>Email:</strong> ${escapeHtml(email)}</td></tr>
+          <tr><td style="padding:6px 0"><strong>Phone:</strong> ${escapeHtml(phone)}</td></tr>
+          <tr><td style="padding:12px 0"><strong>Message:</strong><br/>${escapeHtml(message || "(no message)")}</td></tr>
+          <tr><td style="padding:12px 0;color:#666;font-size:12px">
+            IP: ${escapeHtml(ip)} | UA: ${escapeHtml(userAgent)}
+          </td></tr>
+        </table>
+      `,
+    });
+
+    return { sent: true };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error while sending email";
+    console.error("Failed to send notification email", error);
+    return { sent: false, error: errorMessage };
+  }
 }
 
 export async function POST(request: Request) {
@@ -189,28 +282,26 @@ export async function POST(request: Request) {
     const ip = headersObj["x-forwarded-for"]?.split(",")[0]?.trim() || headersObj["x-real-ip"] || "";
     const userAgent = headersObj["user-agent"] || "";
 
-    const saved = await prisma.contactInquiry.create({
-      data: { name, email, phone, message, ip, userAgent },
-    });
+    const { entry, persisted } = await persistInquiry({ name, email, phone, message, ip, userAgent });
 
-    await sendNotificationEmail({ name, email, phone, message, ip, userAgent });
+    const emailResult = await sendNotificationEmail({ name, email, phone, message, ip, userAgent });
 
-    await sendZapierWebhook({
-      id: saved.id,
-      createdAt: saved.createdAt,
-      name,
-      email,
-      phone,
-      message,
-      ip,
-      userAgent,
-    });
+    await sendZapierWebhook(entry);
 
     corsHeaders.set("Content-Type", "application/json");
-    return new Response(JSON.stringify({ ok: true, id: saved.id }), {
-      status: 200,
-      headers: corsHeaders,
-    });
+    return new Response(
+      JSON.stringify({
+        ok: true,
+        id: entry.id,
+        persisted,
+        emailSent: emailResult.sent,
+        emailError: emailResult.error,
+      }),
+      {
+        status: 200,
+        headers: corsHeaders,
+      }
+    );
   } catch (error) {
     console.error(error);
     corsHeaders.set("Content-Type", "application/json");
