@@ -29,11 +29,11 @@ import {
 import Image from "next/image";
 
 import heroImage from "@/assets/herro2.jpg";
-import interiorImage from "@/assets/villa-interior.jpg";
+import interiorImage from "@/assets/villa-interior.webp";
 import qr from "@/assets/qr.png";
 
 const heroImageUrl = typeof heroImage === "string" ? heroImage : heroImage.src;
-const AMENITIES_IMAGE_URL = "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1200&q=80";
+const AMENITIES_IMAGE_URL = typeof interiorImage === "string" ? interiorImage : interiorImage.src;
 
 const Counter = ({ to, duration = 0.45 }: { to: number; duration?: number }) => {
   const [n, setN] = useState(0);
