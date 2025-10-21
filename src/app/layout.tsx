@@ -1,4 +1,5 @@
-﻿/* eslint-disable @next/next/next-script-for-ga */
+﻿/* eslint-disable @next/next/no-sync-scripts */
+/* eslint-disable @next/next/next-script-for-ga */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -98,6 +99,7 @@ export default function RootLayout({
           "",
           "  gtag('config', 'G-MVRH6RDZ40');",
         ].join("\n")}</script>
+        <script src="https://t.contentsquare.net/uxa/b05ebc8b509d6.js"></script>
       </head>
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <Providers>{children}</Providers>

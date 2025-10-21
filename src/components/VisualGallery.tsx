@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 import { useState, useEffect, useCallback, type TouchEvent } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Card } from "@/components/ui/card";
@@ -73,12 +73,12 @@ const galleryData = {
   ],
   bedrooms: [
     { src: bedroom3, alt: "Master bedroom with balcony in Dubai Hills Estate luxury villa" },
-    { src: bedroom6, alt: "Designer Suite – Feature Wall & Balcony" },
-    { src: bedroom2, alt: "Canopy Suite – Dressing Room & Terrace Access" },
-    { src: bedroom5, alt: "Garden-View Junior Suite – Walk-In Wardrobe" },
-    { src: bedroom1, alt: "Serenity Suite – Sky-Blue Corner Lounge" },
-    { src: bedroom4, alt: "Botanical Suite – Calm Neutrals & Study Nook" },
-    { src: bedroom7, alt: "Guest Suite – Cozy & Quiet Retreat" },
+    { src: bedroom6, alt: "Designer Suite - Feature Wall & Balcony" },
+    { src: bedroom2, alt: "Canopy Suite - Dressing Room & Terrace Access" },
+    { src: bedroom5, alt: "Garden-View Junior Suite - Walk-In Wardrobe" },
+    { src: bedroom1, alt: "Serenity Suite - Sky-Blue Corner Lounge" },
+    { src: bedroom4, alt: "Botanical Suite - Calm Neutrals & Study Nook" },
+    { src: bedroom7, alt: "Guest Suite - Cozy & Quiet Retreat" },
   ],
   bathrooms: [
     { src: bathroom1, alt: "Primary Bathroom" },
@@ -275,7 +275,7 @@ export const VisualGallery = () => {
               priority
             />
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/80 text-sm text-center">
-              {lightboxIndex + 1} / {totalImages} – {images[lightboxIndex].alt}
+              {lightboxIndex + 1} / {totalImages} - {images[lightboxIndex].alt}
             </div>
           </div>
 
