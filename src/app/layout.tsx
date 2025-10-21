@@ -24,11 +24,11 @@ export const metadata: Metadata = {
   description:
     "Exclusive 7BR villa in Dubai Hills Grove, 29,000 sq.ft with private pool, cinema, gym & smart home features. Contact us to book a private viewing today.",
   keywords: [
-"Dubai Hills Grove Villa for Sale",
-"Luxury Villa in Dubai Hills Estate",
-"250 Million AED Mansion Dubai",
-"Dubai Ultra-Luxury Property for Sale",
-"Emaar Hills Grove Villa",
+    "Dubai Hills Grove Villa for Sale",
+    "Luxury Villa in Dubai Hills Estate",
+    "250 Million AED Mansion Dubai",
+    "Dubai Ultra-Luxury Property for Sale",
+    "Emaar Hills Grove Villa",
     "Dubai Hills Grove villa",
     "Dubai Hills Estate mansion",
     "7 bedroom villa Dubai",

@@ -79,7 +79,7 @@ export default function HomePage() {
           </Badge>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Dubai�s Most Prestigious Address
+            Dubai Hills Grove Most Prestigious Address
           </h1>
 
           <p className="text-xl md:text-2xl mb-4 text-white/90">
@@ -136,28 +136,7 @@ export default function HomePage() {
             <div>
               <Badge className="mb-4 bg-primary/10 text-primary">PROPERTY HIGHLIGHTS</Badge>
               <h2 className="text-4xl font-bold mb-6">Property Highlights</h2>
-                            <ul className="mb-6 grid gap-3 text-left text-lg text-foreground">
-                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-                  <span>29,000 sq.ft built-up area</span>
-                </li>
-                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-                  <span>Private swimming pool</span>
-                </li>
-                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-                  <span>Home cinema & gym</span>
-                </li>
-                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-                  <span>Smart home automation</span>
-                </li>
-                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
-                  <span>Prestigious Dubai Hills Estate location</span>
-                </li>
-              </ul>
+              
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 This exceptional 7-bedroom villa spans 29,000 sq.ft. of built-up area on the largest plot in Hills Grove. Crafted for elite living, every detail combines architectural sophistication with modern comfort.
               </p>
