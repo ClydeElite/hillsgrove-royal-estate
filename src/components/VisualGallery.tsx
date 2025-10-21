@@ -1,4 +1,4 @@
-ï»¿'use client';
+'use client';
 import { useState, useEffect, useCallback, type TouchEvent } from "react";
 import Image, { StaticImageData } from "next/image";
 import { Card } from "@/components/ui/card";
@@ -52,15 +52,15 @@ type GalleryItem = { src: StaticImageData; alt: string };
 
 const galleryData = {
   exterior: [
-    { src: exterior2, alt: "Resort-Style Pool & Sun Deck" },
-    { src: exterior1, alt: "Rear FaÃ§ade Panorama" },
+    { src: exterior2, alt: "Exterior view of 7-bedroom villa for sale in Dubai Hills Grove" },
+    { src: exterior1, alt: "Private swimming pool at luxury Dubai Hills Estate villa" },
     { src: exterior5, alt: "Grand Arrival Arcade" },
     { src: exterior3, alt: "Private Courtyard Entrance" },
     { src: exterior6, alt: "Arched Terrace Lounge" },
     { src: exterior4, alt: "Expansive Garden Lawn" },
   ],
   interior: [
-    { src: interior1, alt: "Reception Interior" },
+    { src: interior1, alt: "Spacious modern living room in Dubai Hills Grove mansion" },
     { src: interior2, alt: "Family Dining Area" },
     { src: interior3, alt: "Modern Kitchen & Dining Area" },
     { src: interior4, alt: "Tea & Conversation Nook" },
@@ -72,13 +72,13 @@ const galleryData = {
     { src: interior10, alt: "Sunroom Corner" },
   ],
   bedrooms: [
-    { src: bedroom3, alt: "Primary Suite â€“ Panoramic Pool & Park Views" },
-    { src: bedroom6, alt: "Designer Suite â€“ Feature Wall & Balcony" },
-    { src: bedroom2, alt: "Canopy Suite â€“ Dressing Room & Terrace Access" },
-    { src: bedroom5, alt: "Garden-View Junior Suite â€“ Walk-In Wardrobe" },
-    { src: bedroom1, alt: "Serenity Suite â€“ Sky-Blue Corner Lounge" },
-    { src: bedroom4, alt: "Botanical Suite â€“ Calm Neutrals & Study Nook" },
-    { src: bedroom7, alt: "Guest Suite â€“ Cozy & Quiet Retreat" },
+    { src: bedroom3, alt: "Master bedroom with balcony in Dubai Hills Estate luxury villa" },
+    { src: bedroom6, alt: "Designer Suite – Feature Wall & Balcony" },
+    { src: bedroom2, alt: "Canopy Suite – Dressing Room & Terrace Access" },
+    { src: bedroom5, alt: "Garden-View Junior Suite – Walk-In Wardrobe" },
+    { src: bedroom1, alt: "Serenity Suite – Sky-Blue Corner Lounge" },
+    { src: bedroom4, alt: "Botanical Suite – Calm Neutrals & Study Nook" },
+    { src: bedroom7, alt: "Guest Suite – Cozy & Quiet Retreat" },
   ],
   bathrooms: [
     { src: bathroom1, alt: "Primary Bathroom" },
@@ -99,7 +99,7 @@ const galleryData = {
     { src: outdoor7, alt: "Family BBQ Pergola" },
   ],
   amenities: [
-    { src: amenities1, alt: "Entertainment Lounge" },
+    { src: amenities1, alt: "Private home cinema in Dubai Hills Grove villa" },
     { src: amenities2, alt: "Sports Room" },
     { src: amenities3, alt: "Fitness Room" },
     { src: amenities4, alt: "Covered Parking" },
@@ -180,13 +180,8 @@ export const VisualGallery = () => {
     <section id="gallery" className="py-20 bg-gray-50 scroll-mt-24">
       <div className="mx-auto w-full lg:w-[90%] px-4 sm:px-6">
         <div className="text-center mb-12">
-          <Badge className="bg-primary text-primary-foreground mb-4">VISUAL GALLERY</Badge>
-          <h2 className="text-4xl font-bold mb-4">
-            Visual{" "}
-            <span className="bg-gradient-to-r from-neutral-900 via-neutral-700 to-neutral-900 bg-clip-text text-transparent">
-              Experience
-            </span>
-          </h2>
+          <Badge className="bg-primary text-primary-foreground mb-4">GALLERY</Badge>
+          <h2 className="text-4xl font-bold mb-4">Gallery</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Take a virtual tour of this magnificent property and experience luxury living at its finest
           </p>
@@ -280,7 +275,7 @@ export const VisualGallery = () => {
               priority
             />
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/80 text-sm text-center">
-              {lightboxIndex + 1} / {totalImages} â€“ {images[lightboxIndex].alt}
+              {lightboxIndex + 1} / {totalImages} – {images[lightboxIndex].alt}
             </div>
           </div>
 
@@ -298,5 +293,12 @@ export const VisualGallery = () => {
     </section>
   );
 };
+
+
+
+
+
+
+
 
 

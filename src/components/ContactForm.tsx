@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -72,10 +72,10 @@ export const ContactForm = () => {
         <div className="text-center mb-12">
           <Badge className="bg-white text-foreground mb-4">GET IN TOUCH</Badge>
           <h2 className="text-4xl font-bold mb-4">
-            Contact <span className="bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">Our Expert</span>
+            Schedule a Private Viewing
           </h2>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">
-            Ready to view this exceptional property? Get in touch with our expert agent for exclusive access
+            Contact our team today to request the price and arrange a private tour of this extraordinary villa in Dubai Hills Grove.
           </p>
         </div>
 
@@ -241,3 +241,4 @@ export const ContactForm = () => {
     </section>
   );
 };
+

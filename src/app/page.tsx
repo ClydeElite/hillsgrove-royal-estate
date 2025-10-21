@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
@@ -79,11 +79,11 @@ export default function HomePage() {
           </Badge>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Dubai’s Most Prestigious Address
+            Dubai�s Most Prestigious Address
           </h1>
 
           <p className="text-xl md:text-2xl mb-4 text-white/90">
-            Largest Plot in Hills Grove | Dubai Hills Estate
+            29,000 sq.ft mansion with private pool, cinema, gym & smart home features
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 mb-8 text-lg">
@@ -134,8 +134,30 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 items-center">
             <div>
-              <Badge className="mb-4 bg-primary/10 text-primary">THE PROPERTY</Badge>
-              <h2 className="text-4xl font-bold mb-6">A Landmark Residence in Dubai Hills Estate</h2>
+              <Badge className="mb-4 bg-primary/10 text-primary">PROPERTY HIGHLIGHTS</Badge>
+              <h2 className="text-4xl font-bold mb-6">Property Highlights</h2>
+                            <ul className="mb-6 grid gap-3 text-left text-lg text-foreground">
+                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>29,000 sq.ft built-up area</span>
+                </li>
+                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Private swimming pool</span>
+                </li>
+                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Home cinema & gym</span>
+                </li>
+                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Smart home automation</span>
+                </li>
+                <li className="flex items-start gap-3 rounded-xl bg-neutral-50 p-4 shadow-sm">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+                  <span>Prestigious Dubai Hills Estate location</span>
+                </li>
+              </ul>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 This exceptional 7-bedroom villa spans 29,000 sq.ft. of built-up area on the largest plot in Hills Grove. Crafted for elite living, every detail combines architectural sophistication with modern comfort.
               </p>
@@ -182,7 +204,7 @@ export default function HomePage() {
               className="relative"
             >
               <Card className="overflow-hidden shadow-2xl">
-                <Image src={interiorImage} alt="Villa interior" className="w-full h-full object-cover" />
+                <Image src={interiorImage} alt="Spacious modern living room in Dubai Hills Grove mansion" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-white">
                   <h3 className="text-2xl font-semibold mb-2">29,000 sq.ft. of Refined Living Space</h3>
@@ -207,25 +229,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-neutral-900 text-white py-20">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {[{
-              title: "Elite Community",
-              description: "Hills Grove is the pinnacle of Dubai Hills Estate living with only 26 exclusive plots overlooking the golf course.",
-            },
-            {
-              title: "Architectural Masterpiece",
-              description: "Meticulously crafted with Italian marble, bespoke joinery, and designer lighting throughout.",
-            },
-            {
-              title: "Purposeful Living",
-              description: "Every space is designed for comfort and function, from family gatherings to hosting international guests.",
-            }].map((item) => (
-              <div key={item.title} className="space-y-3">
-                <h3 className="text-2xl font-semibold">{item.title}</h3>
-                <p className="text-white/80 leading-relaxed">{item.description}</p>
-              </div>
-            ))}
+      <section id="location" className="bg-neutral-900 text-white py-20">
+        <div className="max-w-6xl mx-auto px-6 space-y-12">
+          <div className="max-w-3xl">
+            <Badge className="bg-white/10 text-white mb-4">LOCATION</Badge>
+            <h2 className="text-4xl font-bold mb-4">Location: Dubai Hills Grove</h2>
+            <p className="text-white/80 text-lg leading-relaxed">
+              Dubai Hills Grove is one of the most prestigious communities in Dubai Hills Estate, offering privacy, exclusivity, and proximity to schools, malls, and golf courses.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {[{
+                title: "Elite Community",
+                description: "Only 26 ultra-luxury plots overlooking the championship golf course with gated security.",
+              },
+              {
+                title: "Connected Lifestyle",
+                description: "Minutes from Dubai Hills Mall, top-tier schools, and the city's main business districts.",
+              },
+              {
+                title: "Resort Surroundings",
+                description: "Lush landscaping, jogging tracks, and the Dubai Hills Golf Club create a serene retreat.",
+              }].map((item) => (
+                <div key={item.title} className="space-y-3">
+                  <h3 className="text-2xl font-semibold">{item.title}</h3>
+                  <p className="text-white/80 leading-relaxed">{item.description}</p>
+                </div>
+              ))}
+          </div>
         </div>
       </section>
 
@@ -273,7 +304,7 @@ export default function HomePage() {
                 <div className="relative aspect-[3/4] w-full max-w-[380px] lg:max-w-[420px] rounded-3xl shadow-2xl overflow-hidden lg:aspect-auto lg:h-full lg:min-h-[360px]">
                   <Image
                     src={AMENITIES_IMAGE_URL}
-                    alt="Luxury amenities"
+                    alt="Exterior view of 7-bedroom villa for sale in Dubai Hills Grove"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 480px"
@@ -320,10 +351,10 @@ export default function HomePage() {
       <section id="amenities" className="py-20 bg-primary text-primary-foreground">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="bg-white text-foreground mb-4 border border-white/20">AMENITIES</Badge>
-            <h2 className="text-4xl font-bold mb-4">Complete Luxury Amenities</h2>
+            <Badge className="bg-white text-foreground mb-4 border border-white/20">EXCLUSIVE AMENITIES</Badge>
+            <h2 className="text-4xl font-bold mb-4">Exclusive Amenities</h2>
             <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Every convenience and luxury has been thoughtfully included in this exceptional property
+              Enjoy luxury living with landscaped gardens, entertainment spaces, staff quarters, and premium finishes throughout this villa.
             </p>
           </div>
 
@@ -365,6 +396,18 @@ export default function HomePage() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

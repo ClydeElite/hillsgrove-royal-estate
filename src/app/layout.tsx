@@ -14,36 +14,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hillsgrove-royal-estate.vercel.app"),
+  metadataBase: new URL("https://www.dubaihillsgrovevilla.com"),
   title: {
-    default: "Luxury Hills Grove Royal Estate | Elite Property DXB",
-    template: "%s | Elite Property DXB",
+    default: "Dubai Hills Grove Villa – 250M AED Ultra-Luxury Mansion for Sale | Dubai Hills Estate",
+    template: "%s | Dubai Hills Grove Villa",
   },
   description:
-    "Tour the landmark 7-bedroom Hills Grove Royal Estate in Dubai Hills Estate with private cinema, spa suite, and 29,000 sq.ft of curated living by Elite Property DXB.",
+    "Exclusive 7BR villa in Dubai Hills Grove, 29,000 sq.ft with private pool, cinema, gym & smart home features. Contact us to book a private viewing today.",
   keywords: [
-    "Elite Property DXB",
-    "Hills Grove Royal Estate",
-    "Dubai Hills Estate villa",
-    "Luxury mansion Dubai",
+"Dubai Hills Grove Villa for Sale",
+"Luxury Villa in Dubai Hills Estate",
+"250 Million AED Mansion Dubai",
+"Dubai Ultra-Luxury Property for Sale",
+"Emaar Hills Grove Villa",
+    "Dubai Hills Grove villa",
+    "Dubai Hills Estate mansion",
     "7 bedroom villa Dubai",
+    "Luxury villa for sale Dubai",
+    "Dubai Hills Grove property",
+    "Hills Grove Royal Estate",
     "Dubai luxury real estate",
-    "Ultra luxury property Dubai",
   ],
   category: "Real Estate",
-  authors: [{ name: "Elite Property DXB" }],
-  creator: "Elite Property DXB",
-  publisher: "Elite Property DXB",
+  authors: [{ name: "Hills Grove Royal Estate" }],
+  creator: "Hills Grove Royal Estate",
+  publisher: "Hills Grove Royal Estate",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    url: "https://hillsgrove-royal-estate.vercel.app/",
-    title: "Luxury Hills Grove Royal Estate | Elite Property DXB",
+    url: "https://www.dubaihillsgrovevilla.com/",
+    title: "Dubai Hills Grove Villa – 250M AED Ultra-Luxury Mansion for Sale | Dubai Hills Estate",
     description:
-      "Tour the landmark 7-bedroom Hills Grove Royal Estate in Dubai Hills Estate with private cinema, spa suite, and 29,000 sq.ft of curated living by Elite Property DXB.",
-    siteName: "Elite Property DXB",
+      "Explore Dubai Hills Grove’s largest villa – a 250M AED architectural masterpiece with 29,000 sq.ft of living space, 7 ensuite bedrooms, smart home tech, and exclusive Dubai Hills Estate views.",
+    siteName: "Dubai Hills Grove Villa",
     images: [
       {
         url: "/meta-cover.jpg",
@@ -55,9 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Luxury Hills Grove Royal Estate | Elite Property DXB",
+    title: "Dubai Hills Grove Villa – 250M AED Ultra-Luxury Mansion for Sale | Dubai Hills Estate",
     description:
-      "Tour the landmark 7-bedroom Hills Grove Royal Estate in Dubai Hills Estate with private cinema, spa suite, and 29,000 sq.ft of curated living by Elite Property DXB.",
+      "Explore Dubai Hills Grove’s largest villa – a 250M AED architectural masterpiece with 29,000 sq.ft of living space, 7 ensuite bedrooms, smart home tech, and exclusive Dubai Hills Estate views.",
     images: ["/meta-cover.jpg"],
   },
   robots: {
@@ -82,6 +87,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-MVRH6RDZ40"></script>
+        <script>{[
+          "  window.dataLayer = window.dataLayer || [];",
+          "  function gtag(){dataLayer.push(arguments);}",
+          "  gtag('js', new Date());",
+          "",
+          "  gtag('config', 'G-MVRH6RDZ40');",
+        ].join("\n")}</script>
+      </head>
       <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}>
         <Providers>{children}</Providers>
       </body>
