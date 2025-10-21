@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+﻿/* eslint-disable @next/next/next-script-for-ga */
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
